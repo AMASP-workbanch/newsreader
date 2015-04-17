@@ -1,0 +1,11 @@
+/**
+ *	Backend.css for module NewsReader
+ *	
+ *
+ */
+ 
+.mod_newsreader_edit_css {
+	display: block;
+	float: right;
+	margin-right:50px;
+}
