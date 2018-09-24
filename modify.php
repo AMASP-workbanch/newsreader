@@ -122,6 +122,7 @@ $form_values = array(
 	'OWN_DATEFORMAT'	=> $own_dateformat,
 	'USE_UTF8_ENCODING'	=> $use_utf8_encoding,
 	'TEXT_SAVE'	=> $TEXT['SAVE'],
+	'TEXT_BACK'	=> $TEXT['BACK'],
 	'TEXT_CANCEL' => $TEXT['CANCEL'],
 	'TEXT_PREVIEW' => $MOD_NEWSREADER_TEXT['PREVIEW']
 );

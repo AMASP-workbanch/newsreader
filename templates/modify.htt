@@ -9,6 +9,7 @@
 	  <input type="hidden" name="page_id" value="{PAGE_ID}" />
 	  <input type="hidden" name="section_id" value="{SECTION_ID}" />
 	  <input type="hidden" name="sqltype" value="{SQLTYPE}" />
+	  <input type="hidden" name="job" value="save" />
 	  {FTAN}
 	  <table width=100%>
 			<tr>
@@ -67,6 +68,9 @@
 			<tr>
 				<td align="center">
 					<input type="submit" value="{TEXT_SAVE}" class="newsreader_interface" />
+				</td>
+				<td align="center">
+					<input type="button" value="{TEXT_SAVE} & {TEXT_BACK}" class="newsreader_interface" onclick="this.form.job.value='save_back';this.form.submit();"/>
 				</td>
 				<td align="center">
 					<input type="button" value="{TEXT_CANCEL}" onclick="javascript: window.location = 'index.php';" class="newsreader_interface" />

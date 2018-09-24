@@ -1,6 +1,5 @@
 /**
- *	Backend.css for module NewsReader
- *	
+ *	Backend-css for module: NewsReader
  *
  */
  
@@ -16,4 +15,16 @@
 
 table.newsreader_interface tr td{
 	min-width: 150px !important;
+}
+
+form[name^="newsreader"] {
+    margin-top: 12px;
+    margin-bottom:23px;
+}
+
+select[name="coding_from"],
+select[name="coding_to"] {
+    width: 150px;
+    display: inherit;
+    margin-right: 12px;
 }

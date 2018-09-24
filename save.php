@@ -44,7 +44,7 @@ if (true === method_exists($admin, 'checkFTAN')) {
 } else {
 	$admin->print_header();
 }
-      
+   
 $lang_file = WB_PATH . '/modules/newsreader/languages/' . LANGUAGE . '.php';
 require_once( file_exists($lang_file) ? $lang_file : WB_PATH . '/modules/newsreader/languages/EN.php' );
 
@@ -110,7 +110,15 @@ if($database->is_error()) {
 			$admin->print_error( $result . "<br />".$MOD_NEWSREADER_TEXT['RECORDS UNTOUCHED'], $js_back);
 	
 	} else {
-		$admin->print_success($MESSAGE['PAGES_SAVED'], ADMIN_URL.'/pages/modify.php?page_id='.$page_id);
+	    if(isset($_POST['job']))
+	    {
+	        if($_POST['job']== "save_back")
+	        {
+	            $admin->print_success($MESSAGE['PAGES_SAVED'], ADMIN_URL.'/pages/index.php');
+	        } else {
+	            $admin->print_success($MESSAGE['PAGES_SAVED'], ADMIN_URL.'/pages/modify.php?page_id='.$page_id);
+	        }
+	    }
 	}
 }
 
