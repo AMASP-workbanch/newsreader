@@ -1,13 +1,13 @@
 ## NewsReader
-Frontendmodule to handel XML and RDF/RSS (0.9x, 1.0, 2.0) newsfeeds for WebsiteBaker.
+Pagemodule to handel XML and RDF/RSS (0.9x, 1.0, 2.0) newsfeeds for WebsiteBaker.
 
 ### Preface
-Just an old module, started by Robert Hase about 2005 for WebsiteBaker.
-Nothing more, nothing less.
+Just an old module, started by Robert Hase about 2005 for WebsiteBaker.  
+_Nothing more, nothing less._
 
 #### Require
 - PHP >= 7.1.x
-- WebsiteBaker 2.8.3 SP3 (2.12.0 recommended)
+- WebsiteBaker 2.10.0 (2.12.0 recommended)
 
 #### Tests
 Tested on
