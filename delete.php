@@ -1,28 +1,22 @@
 <?php
 
-/*
+/**
+ *
+ * @category        page
+ * @package         newsreader
+ * @author          Robert Hase, Matthias Gallas, Dietrich Roland Pehlke (last)
+ * @license         http://www.gnu.org/licenses/gpl.html
+ * @platform        WebsiteBaker 2.12.x
+ * @requirements    PHP 5.3 and higher
+ * @version         0.3.9
+ * @lastmodified    Sep 2018 
+ *
+ */
 
- Website Baker Project <http://www.websitebaker.org/>
- Copyright (C) 2004-2007, Ryan Djurovich
+if ((__FILE__ != $_SERVER['SCRIPT_FILENAME']) === false) {
+	die('<head><title>Access denied</title></head><body><h2 style="color:red;margin:3em auto;text-align:center;">Cannot access this file directly</h2></body></html>');
+}
 
- Website Baker is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- Website Baker is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with Website Baker; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
-
-if(defined('WB_PATH') == false) { exit("Cannot access this file directly"); }
-
-$database->query("DELETE FROM ".TABLE_PREFIX."mod_newsreader WHERE section_id = '$section_id'");
+$database->query("DELETE FROM `".TABLE_PREFIX."mod_newsreader` WHERE `section_id` = '".$section_id."'");
 
 ?>

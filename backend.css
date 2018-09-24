@@ -9,3 +9,11 @@
 	float: right;
 	margin-right:50px;
 }
+
+.newsreader_interface {
+	width: 100px;
+}
+
+table.newsreader_interface tr td{
+	min-width: 150px !important;
+}

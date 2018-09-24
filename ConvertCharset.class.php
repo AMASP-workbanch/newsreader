@@ -391,14 +391,18 @@ class ConvertCharset {
 	 * @return string Converted string in brand new encoding :)
 	 * @version 1.0 2004-07-27 01:09
 	 **/
-	function Convert ($StringToChange, $FromCharset, $ToCharset, $TurnOnEntities = false)
+	function Convert ($StringToChange = "", $FromCharset, $ToCharset, $TurnOnEntities = false)
 	{
 		/**
 		 * Check are there all variables 
 		 **/
+		 /**
+		  *	2015-05-12:	Aldus - Nothing to convert - so we simple return an empty string instead of an error here.
+		  */
 		 if ($StringToChange == "") 
 		 {
-				print $this->DebugOutput(0, 3, "\$StringToChange");
+		 	return "";
+				// print $this->DebugOutput(0, 3, "\$StringToChange");
 		 }
 		 else if ($FromCharset == "") 
 		 {

@@ -1,5 +1,18 @@
 <?php
 
+/**
+ *
+ * @category        page
+ * @package         newsreader
+ * @author          Robert Hase, Matthias Gallas, Dietrich Roland Pehlke (last)
+ * @license         http://www.gnu.org/licenses/gpl.html
+ * @platform        WebsiteBaker 2.12.x
+ * @requirements    PHP 5.3 and higher
+ * @version         0.3.9
+ * @lastmodified    Sep 2018 
+ *
+ */
+
 /********************************************************************
 
 a little bit modified from Robert Hase, adm_prg[AT]muc-net.de, 2005
@@ -57,26 +70,26 @@ class RSS_feed {
 	// is in the _handle_character_data function as that is where the 
 	// feed information can be found.
 
-	var $flag;      // To control the state of the unordered list
-	var $state;     // To determine which element tag is being worked
-	var $level;     // Simple XML level control
-	var $output;    // Where the results will be stored
-	var $showdesc;  // A flag to indicate whether or not to show the description.
-	var $showimage; // A flag to indicate whether or not to show the image.
-	var $URL;       // The location of the external feed.
-	var $psr;       // Our parser object.
-	var $contents;  // The RSS/XML from the feed
-	var $rss_version; // Stores version "number"
-	var $limit;     // The maximum number of links we want
-	var $channel;   // Array of channel cdata
-	var $image;     // Array of image cdata
-	var $item;      // Array of item cdata
-	var $channelclosed; // To indicate state if channel closes before image tags.
-
-	// Define the functions required for handling the different pieces.
-
-	function RSS_feed() {
-		// Constructor
+	public $flag;      // To control the state of the unordered list
+	public $state;     // To determine which element tag is being worked
+	public $level;     // Simple XML level control
+	public $output;    // Where the results will be stored
+	public $showdesc;  // A flag to indicate whether or not to show the description.
+	public $showimage; // A flag to indicate whether or not to show the image.
+	public $URL;       // The location of the external feed.
+	public $psr;       // Our parser object.
+	public $contents;  // The RSS/XML from the feed
+	public $rss_version; // Stores version "number"
+	public $limit;     // The maximum number of links we want
+	public $channel;   // Array of channel cdata
+	public $image;     // Array of image cdata
+	public $item;      // Array of item cdata
+	public $channelclosed; // To indicate state if channel closes before image tags.
+	public $error = "";		// Public property for "last" error-messages, e.g. 'unable to connect the host at http://www.abc.xx'.
+	
+	//	Constructor
+	public function __construct() {
+		
 		$this->output = "";
 		$this->channel = array();
 		$this->image = array();
@@ -93,7 +106,7 @@ class RSS_feed {
 	
 	// METHODS AND PROPERTIES *****************************************
 
-	function Show_Description($tf) {
+	public function Show_Description($tf) {
 		// By default the description is not included in the results
 		// This public function allows for the description to be
 		// included, if desired.
@@ -104,7 +117,7 @@ class RSS_feed {
 		}
 	}
 
-	function Show_Image($tf) {
+	public function Show_Image($tf) {
 		// By default the image is not included in the results
 		// This allows for the image to be included, if desired.
 		if (!$tf === false) {
@@ -114,7 +127,7 @@ class RSS_feed {
 		}
 	}
 
-	function Set_URL($url) {
+	public function Set_URL($url) {
 		// This is the URL to the feed. The class expects that RSS/XML will
 		// be returned.
 		$this->URL = $url;
@@ -123,22 +136,25 @@ class RSS_feed {
 		// Get the RSS/XML from the feed URL
 		$this->_load_file();
 		
+		if ($this->error != "") return false;
+		
 		// Check the version of the XML and set the version state
 		$this->_get_rss_version();
+		
+		return true;
 	}
 
-	function Set_Limit($cnt) {
+	public function Set_Limit($cnt) {
 		// This property sets the limit of links to return
 		// if $cnt is not numeric, 0 is returned! You get the entire list!
 		$i = intval($cnt);
 		if ($i > 0) $this->limit = $i;
 	}
 
-	function Get_Results() {
+	public function Get_Results( $use_utf8_encode=0 ) {
 		// When the properties have been set, then this function should
 		// be called. It will return the HTML unordered list.
-		$c = $this->contents;
-		
+		$c = ($use_utf8_encode == 0) ? $this->contents : utf8_encode($this->contents);
 		// Create the parser and set handlers.
 		$this->psr = xml_parser_create();
 		xml_set_object($this->psr, $this);
@@ -154,7 +170,7 @@ class RSS_feed {
 			xml_set_element_handler($this->psr, '_rdf_handle_open_element', '_handle_close_element');
 			break;
 		}
-		
+
 		// Set the handler for the cdata
 		xml_set_character_data_handler($this->psr, "_handle_character_data");
 		
@@ -165,7 +181,7 @@ class RSS_feed {
 			// This indicates a bad or malformed feed!
 			$ln =  xml_get_current_line_number($this->psr);
 			$msg =  xml_error_string(xml_get_error_code($this->psr));
-			return "An XML error occurred on line $ln: $msg";
+			return "[np 12] An XML error occurred on line ".$ln.": ".$msg;
 		}
 		
 		// Free up the parser and clear memory
@@ -180,7 +196,7 @@ class RSS_feed {
 	//**************************************************************
 	
 	// HANDLER FUNCTIONS
-	function _handle_open_element (&$p, &$element, &$attributes) {
+	private function _handle_open_element (&$p, &$element, &$attributes) {
 		// parser for rss version 0.9x and 2.0
 		// Set the state of the class for the benefit of the cdata handler.
 		$element = strtolower($element);
@@ -244,7 +260,7 @@ class RSS_feed {
 		}
 	}
 
-	function _rdf_handle_open_element(&$p, &$element, &$attributes) {
+	private function _rdf_handle_open_element(&$p, &$element, &$attributes) {
 		// RDF mixes things up a bit so we need to pay attention
 		// However, when you get right down to it. There may be
 		// no difference in the RDF feed other than more stuff to
@@ -311,7 +327,7 @@ class RSS_feed {
 		}
 	}
 
-	function _handle_character_data(&$p, &$cdata) {
+	private function _handle_character_data(&$p, &$cdata) {
 		/* 
 		This function is trivialized in many examples. However, this is
 		where the real action lies. We have set the state of the class in order 
@@ -402,7 +418,7 @@ class RSS_feed {
 		}
 	}
 
-	function _handle_close_element(&$p, &$element) {
+	private function _handle_close_element(&$p, &$element) {
 		// Closing elements for all versions.
 		// Because the elements can appear in orders differing from each other
 		// the output is now created at the close of each of the critical elements.
@@ -423,7 +439,7 @@ class RSS_feed {
 				$cnt = 0;
 			}
 			if ($this->limit > $cnt || !$this->limit) {
-				$this->output .= "\t\t" . '<li><a href="' . $this->item["link"] . '" alt="' . $this->item["link"] . '" title="' . $this->item["link"] . '" target="_blank">' . $this->item["title"] . '</a>';
+				$this->output .= "\t\t" . '<li><a href="' . $this->item["link"] . '" title="' . $this->item["link"] . '" target="_blank">' . $this->item["title"] . '</a>';
 				if ($this->showdesc) {
 					$this->output .= "\n\t\t\t" .'<div class="nr_itemdesc">' . $this->item["desc"] . '</div>';
 				}
@@ -439,14 +455,31 @@ class RSS_feed {
 		}
 	}
 
-	function _load_file() {
+	private function _load_file() {
 		// Get the raw feed from the URL. Because this uses a URL as the feed source
 		// it can be used to process an RSS/XML feed from any web site, including local.
-		$data = @file($this->URL) or die ("Could not open a feed called: " . $this->URL);
-		$this->contents = implode('',$data);  // Put data into an array
+		
+		$ch = curl_init() or die("<b>Error:</b> Could not init cURL!");
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_POST, 0);		// !
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_FAILONERROR, true);
+		
+		// curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)');
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // 1
+		// curl_setopt($ch, CURLOPT_POSTREDIR, 3); // 2
+		
+		curl_setopt($ch, CURLOPT_URL, $this->URL);
+		$this->contents = curl_exec($ch);
+		// echo var_dump( $this->contents );
+		if (false === $this->contents) {
+			$this->error = "<b>Error</b>: ".curl_error($ch);
+		}
+		
+		curl_close($ch);
 	}
 
-	function _get_rss_version() {
+	private function _get_rss_version() {
 		// Set the version state
 		if (strpos($this->contents,'version="0.9'))  {
 			$this->rss_version = 9;

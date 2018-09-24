@@ -1,65 +1,49 @@
 <?php
 
-/*
+/**
+ *
+ * @category        page
+ * @package         newsreader
+ * @author          Robert Hase, Matthias Gallas, Dietrich Roland Pehlke (last)
+ * @license         http://www.gnu.org/licenses/gpl.html
+ * @platform        WebsiteBaker 2.12.x
+ * @requirements    PHP 5.3 and higher
+ * @version         0.3.9
+ * @lastmodified    Sep 2018 
+ *
+ */
 
- Website Baker Project <http://www.websitebaker.org/>
- Copyright (C) 2004-2007, Ryan Djurovich
-
- Website Baker is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- Website Baker is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with Website Baker; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
-
-// i18n
-$TEXT['RSS_URI'] = 'RSS-URI';
-$TEXT['CYCLE'] = 'Update-Cycle';
-$TEXT['LAST_UPDATED'] = 'last updated';
-$TEXT['SHOW_IMAGE'] = 'show Logo';
-$TEXT['SHOW_DESCRIPTION'] = 'show Description';
-$TEXT['MAX_ITEMS'] = 'max. Items';
-$TEXT['CODING'] = 'Coding';
-$TEXT['FROM'] = 'from';
-$TEXT['TO'] = 'to';
-
-$MSG['RSS_URI'] = 'Weblink to the Newsfeed. Example: http://www.heise.de/newsticker/heise.rdf';
-$MSG['CYCLE'] = 'Actualization interval in seconds. Should not be smaller than 14400 Sec. (4 hours).';
-$MSG['LAST_UPDATED'] = 'Last actualization time of the Newsfeed.';
-$MSG['SHOW_IMAGE'] = 'If enabled, the Newsfeed logo will be displayed (if defined in the newsfeed).';
-$MSG['SHOW_DESCRIPTION'] = 'If enabled, the description of each news-item will be displayed (if included in the newsfeed)';
-$MSG['MAX_ITEMS'] = 'maximum numbers of news items to display. Normaly, newsfeeds have no more than 15 items.';
-$MSG['CODING'] = 'Coding of a Newsfeed. Sample: If the Newsfeed is UTF-8 coded and your Website is running with ISO-8859-1, please choose "from" utf-8 and "to" iso-8859-1.';
-
-if(file_exists('./i18n/' . $_REQUEST['lang'] . '.php')) {
-	include('./i18n/' . $_REQUEST['lang'] . '.php');
-} elseif(file_exists('./i18n/EN.php')) {
-	include('./i18n/EN.php');
+if(file_exists('./languages/' . $_REQUEST['lang'] . '.php')) {
+	include('./languages/' . $_REQUEST['lang'] . '.php');
+} else {
+	include('./languages/EN.php');
 }
 
 // output
-$out = '
-<html>
+$out = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>WB Newsreader Info</title>
+		<title>WB Newsreader help</title>
 		<style type="text/css">
-			#colone {
-				font-weight: bold;
-				background-color: #336699;
-				color: #FFFFFF;
+			table {
+				font-family: Verdana, sans-serif;
+				font-size: 12px;
+				line-height: 1.3 em;
+				width: 100%;
 			}
-			#coltwo {
-				background-color: #336699;
+			.colone {
+				font-weight: bold;
+				background-color: #009900;
 				color: #FFFFFF;
+				width: 200px;
+				padding-left: 10px;
+				height: 24px;
+			}
+			.coltwo {
+				background-color: #DDDDDD;
+				color: #000000;
+				padding-left: 10px;
+				height: 24px;
 			}
 		</style>
 	</head>
@@ -69,34 +53,42 @@ echo $out;
 
 $out = '
 <body>
-	<table width=100%>
+	<table>
 		<tr>
-			<td id="colone">' .$TEXT['RSS_URI']. '</td>
-			<td id="coltwo">' .$MSG['RSS_URI']. '</td>
+			<td class="colone">' .$MOD_NEWSREADER_TEXT['RSS_URI']. '</td>
+			<td class="coltwo">' .$MOD_NEWSREADER_MSG['RSS_URI']. '</td>
 		</tr>
 		<tr>
-			<td id="colone">' .$TEXT['CYCLE']. '</td>
-			<td id="coltwo">' .$MSG['CYCLE']. '</td>
+			<td class="colone">' .$MOD_NEWSREADER_TEXT['CYCLE']. '</td>
+			<td class="coltwo">' .$MOD_NEWSREADER_MSG['CYCLE']. '</td>
 		</tr>
 		<tr>
-			<td id="colone">' .$TEXT['LAST_UPDATED']. '</td>
-			<td id="coltwo">' .$MSG['LAST_UPDATED']. '</td>
+			<td class="colone">' .$MOD_NEWSREADER_TEXT['LAST_UPDATED']. '</td>
+			<td class="coltwo">' .$MOD_NEWSREADER_MSG['LAST_UPDATED']. '</td>
 		</tr>
 		<tr>
-			<td id="colone">' .$TEXT['SHOW_IMAGE']. '</td>
-			<td id="coltwo">' .$MSG['SHOW_IMAGE']. '</td>
+			<td class="colone">' .$MOD_NEWSREADER_TEXT['OWN_DATEFORMAT']. '</td>
+			<td class="coltwo">' .$MOD_NEWSREADER_MSG['OWN_DATEFORMAT']. '</td>
 		</tr>
 		<tr>
-			<td id="colone">' .$TEXT['SHOW_DESCRIPTION']. '</td>
-			<td id="coltwo">' .$MSG['SHOW_DESCRIPTION']. '</td>
+			<td class="colone">' .$MOD_NEWSREADER_TEXT['SHOW_IMAGE']. '</td>
+			<td class="coltwo">' .$MOD_NEWSREADER_MSG['SHOW_IMAGE']. '</td>
 		</tr>
 		<tr>
-			<td id="colone">' .$TEXT['MAX_ITEMS']. '</td>
-			<td id="coltwo">' .$MSG['MAX_ITEMS']. '</td>
+			<td class="colone">' .$MOD_NEWSREADER_TEXT['SHOW_DESCRIPTION']. '</td>
+			<td class="coltwo">' .$MOD_NEWSREADER_MSG['SHOW_DESCRIPTION']. '</td>
 		</tr>
 		<tr>
-			<td id="colone">' .$TEXT['CODING']. '</td>
-			<td id="coltwo">' .$MSG['CODING']. '</td>
+			<td class="colone">' .$MOD_NEWSREADER_TEXT['MAX_ITEMS']. '</td>
+			<td class="coltwo">' .$MOD_NEWSREADER_MSG['MAX_ITEMS']. '</td>
+		</tr>
+		<tr>
+			<td class="colone">' .$MOD_NEWSREADER_TEXT['CODING']. '</td>
+			<td class="coltwo">' .$MOD_NEWSREADER_MSG['CODING']. '</td>
+		</tr>
+		<tr>
+			<td class="colone">' .$MOD_NEWSREADER_TEXT['USE_UTF8_ENCODING']. '</td>
+			<td class="coltwo">' .$MOD_NEWSREADER_MSG['USE_UTF8_ENCODING']. '</td>
 		</tr>
 	</table>
 </body>

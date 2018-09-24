@@ -1,25 +1,18 @@
 <?php
 
-/*
+/**
+ *
+ * @category        page
+ * @package         newsreader
+ * @author          Robert Hase, Matthias Gallas, Dietrich Roland Pehlke (last)
+ * @license         http://www.gnu.org/licenses/gpl.html
+ * @platform        WebsiteBaker 2.12.x
+ * @requirements    PHP 5.3 and higher
+ * @version         0.3.9
+ * @lastmodified    Sep 2018 
+ *
+ */
 
- Website Baker Project <http://www.websitebaker.org/>
- Copyright (C) 2004-2007, Ryan Djurovich
-
- Website Baker is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- Website Baker is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with Website Baker; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
 
 if(defined('WB_URL')) {
 	$database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."mod_newsreader`");
@@ -41,6 +34,8 @@ if(defined('WB_URL')) {
 		. ' `img_link` varchar(255) NOT NULL DEFAULT \'\','
 		. ' `coding_from` varchar(100) NOT NULL DEFAULT \'\','
 		. ' `coding_to` varchar(100) NOT NULL DEFAULT \'\','
+		. ' `use_utf8_encode` int(11) NOT NULL DEFAULT \'0\','
+		. ' `own_dateformat` varchar(100) NOT NULL DEFAULT \'\','
 		. ' PRIMARY KEY ( `section_id` ) )'
 		. ' ';
 	$database->query($sql);
