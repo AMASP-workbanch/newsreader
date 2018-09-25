@@ -127,6 +127,11 @@ $form_values = array(
 	'TEXT_PREVIEW' => $MOD_NEWSREADER_TEXT['PREVIEW']
 );
 
+if (!class_exists('Template', true))
+{
+    require(WB_PATH.'/include/phplib/template.inc');
+}
+
 $template = new Template( dirname(__FILE__)."/templates/" );
 $template->set_file('page', 'modify.htt');
 $template->set_block('page', 'main_block', 'main');

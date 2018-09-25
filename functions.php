@@ -13,7 +13,8 @@
  *
  */
 
-function output($nf) {
+function output($nf)
+{
 	/*
 	DESCRIPTION:
 	ch_title	= title of the newsfeed
@@ -46,18 +47,25 @@ function output($nf) {
 	$lookup_paths[] = "/modules/".$sModulname."/templates/";
 	
 	$template_dir = "";
-	foreach($lookup_paths as &$path) {
+	foreach($lookup_paths as &$path)
+	{
 		if (file_exists( WB_PATH.$path."view.htt" )) {
 			$template_dir = WB_PATH.$path;
 			break;
 		}
 	}
 
-	if ($template_dir == "") {
+	if ($template_dir == "")
+	{
 		echo "Error: can't find any valid template-file for the view.php. Please check installation.";
 		return NULL;
 	}	
 
+    if (!class_exists('Template', true))
+    {
+        require(WB_PATH.'/include/phplib/template.inc');
+    }
+	
 	$template = new Template( $template_dir );
 	$template->set_file('page', 'view.htt');
 	$template->set_block('page', 'main_block', 'main');
@@ -70,7 +78,8 @@ function output($nf) {
 	$oCDate = new newsreader_date();
 	
 	$oCDate->set_wb_lang( LANGUAGE );
-	if ($nf['own_dateformat'] != "") {
+	if ($nf['own_dateformat'] != "")
+	{
 		$oCDate->format = $nf['own_dateformat'];
 	} else {
 		$oCDate->format = $oCDate->wb_date_formats[ DATE_FORMAT ] ." - ".$oCDate->wb_time_formats[ TIME_FORMAT ];
@@ -80,17 +89,19 @@ function output($nf) {
 	
 	$template->set_var(
 		array(
-		'IMG_LINK'	=> $nf['img_link'],
-		'IMG_TITLE'	=> $nf['img_title'],
-		'IMG_URI'	=> $nf['img_uri'],
-		'CH_TITLE'	=> $nf['ch_title'],
-		'CH_DESC'	=> $nf['ch_desc'],
-		'TEXT_LAST_UPDATED'	=> $MOD_NEWSREADER_TEXT['LAST_UPDATED'], # 1: language-file!
-		'LAST_UPDATED_TIME'	=> $last_update,
-		'CONTENT'	=> $nf['content'],
-	));
+            'IMG_LINK'	=> $nf['img_link'],
+            'IMG_TITLE'	=> $nf['img_title'],
+            'IMG_URI'	=> $nf['img_uri'],
+            'CH_TITLE'	=> $nf['ch_title'],
+            'CH_DESC'	=> $nf['ch_desc'],
+            'TEXT_LAST_UPDATED'	=> $MOD_NEWSREADER_TEXT['LAST_UPDATED'], # 1: language-file!
+            'LAST_UPDATED_TIME'	=> $last_update,
+            'CONTENT'	=> $nf['content']
+        )
+    );
 	
-	if ($nf['img_uri'] != "") {
+	if ($nf['img_uri'] != "")
+	{
 		$template->parse('image', 'image_block', true); 
 	}
 	
@@ -99,7 +110,8 @@ function output($nf) {
 	$template->pparse('output', 'page', false);
 }
 
-function update($uri, $section_id, $show_image, $show_desc, $show_limit, $coding_from, $coding_to, $use_utf8_encode=0, $own_dateformat="") {
+function update($uri, $section_id, $show_image, $show_desc, $show_limit, $coding_from, $coding_to, $use_utf8_encode=0, $own_dateformat="")
+{
 	// called by view.php
 	global $database;
 	
