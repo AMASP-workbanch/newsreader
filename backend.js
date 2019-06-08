@@ -1,7 +1,7 @@
 /**
  * Backend JavaScript for module NewsReader.
  *
- * @version         0.3.10
+ * @version         0.4.0
  * @lastmodified    May 2015
  *
  */
