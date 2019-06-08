@@ -3,6 +3,10 @@
 Please note: This change log may not be accurate
 
 ------------------------------------------------------------------------------------------
+### 0.3.10
+- Minor changes in the readme
+- Tested on PHP 7.3.1 with WBCE 1.3.3
+
 ### 0.3.9
 - Codechanges and modifications for WB 2.12.x
 - Remove L* specific code
