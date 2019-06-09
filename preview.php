@@ -15,6 +15,8 @@
 
 require_once('../../config.php');
 
+addon\newsreader\classes\newsreaderInit::getInstance();
+
 include_once('./functions.php');
 if(!defined('NEWS_READER_LANGUAGE')) {
 	define('NEWS_READER_LANGUAGE', getLanguage());
@@ -59,9 +61,7 @@ if(!isset($_REQUEST['OWN_DATEFORMAT']))
 /**	*************
  *	Date and time
  */
-
-require_once(dirname(__FILE__)."/classes/class.newsreader_date.php");
-$oCDate = new newsreader_date();
+$oCDate = \newsreader\xdate::getInstance();
 	
 $oCDate->set_wb_lang( LANGUAGE );
 	

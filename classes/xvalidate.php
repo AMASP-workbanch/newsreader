@@ -1,23 +1,25 @@
 <?php
 
 /**
- * This file is part of LEPTON Core, released under the GNU GPL
- * Please see LICENSE and COPYING files in your package for details, specially for terms and warranties.
- * 
- * NOTICE:LEPTON CMS Package has several different licenses.
- * Please see the individual license in the header of each single file or info.php of modules and templates.
  *
- * @author          LEPTON Project
- * @copyright       2010-2014 LEPTON Project
- * @link            http://www.LEPTON-cms.org
+ * @category        page
+ * @package         newsreader
+ * @author          Robert Hase, Matthias Gallas, Dietrich Roland Pehlke (last)
  * @license         http://www.gnu.org/licenses/gpl.html
- * @license_terms   please see LICENSE and COPYING files in your package
+ * @platform        WebsiteBaker 2.12.x
+ * @requirements    PHP 7.1 and higher
+ * @version         0.4.0
+ * @lastmodified    Jun 2019 
  *
  */
- 
-class lepton_validate_request
+
+namespace newsreader;
+
+class xvalidate extends abstracts\addon
 {
 
+	static $instance;
+	
 	/**
 	 *	Public var to handle the way the class should look for the value;
 	 *	supported types are 'post', 'get' or 'request'
@@ -49,11 +51,18 @@ class lepton_validate_request
 	 */
 	public $errors = array();
 	
+	/*
 	public function __construct ( &$options="" ) {
 		if ( true === is_array($options)) {
 			if (true === array_key_exists("strict_looking_inside", $options)) 
 				$this->strict_looking_inside == strtolower($options['strict_looking_inside']);
 		}
+	}
+	*/
+	
+	public function initialize()
+	{
+	
 	}
 	
 	/**

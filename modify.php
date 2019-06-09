@@ -17,6 +17,8 @@ if ((__FILE__ != $_SERVER['SCRIPT_FILENAME']) === false) {
 	die('<head><title>Access denied</title></head><body><h2 style="color:red;margin:3em auto;text-align:center;">Cannot access this file directly</h2></body></html>');
 }
 
+addon\newsreader\classes\newsreaderInit::getInstance();
+
 global $admin;
 
 include_once(WB_PATH . '/modules/newsreader/functions.php');
@@ -63,8 +65,7 @@ if(function_exists('edit_module_css'))
  *	Date and time
  */
 
-require_once(dirname(__FILE__)."/classes/class.newsreader_date.php");
-$oCDate = new newsreader_date();
+$oCDate = newsreader\xdate::getInstance();
 	
 $oCDate->set_wb_lang( LANGUAGE );
 	

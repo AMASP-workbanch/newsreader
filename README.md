@@ -6,9 +6,9 @@ Just an old module, started by Robert Hase about 2005 for WebsiteBaker.
 _Nothing more, nothing less._
 
 #### Require
-- PHP >= 7.1.x
+- PHP >= 7.2.x
 - WBCE 1.3.3
-- WebsiteBaker 2.10.0 (2.12.0 recommended)
+- WebsiteBaker 2.12.0 (2.12.1 recommended)
 
 #### Tests
 Tested on

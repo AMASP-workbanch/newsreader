@@ -23,6 +23,9 @@ if(!defined('WB_PATH'))
     die(header('Location: ../../index.php'));
 }
 
+addon\newsreader\classes\newsreaderInit::getInstance();
+
+
 // Tells script to update when this page was last updated
 $update_when_modified = true;
 // Include WB admin wrapper script
@@ -48,8 +51,9 @@ if (true === method_exists($admin, 'checkFTAN')) {
 $lang_file = WB_PATH . '/modules/newsreader/languages/' . LANGUAGE . '.php';
 require_once( file_exists($lang_file) ? $lang_file : WB_PATH . '/modules/newsreader/languages/EN.php' );
 
-require_once(dirname(__FILE__)."/classes/class.validate.request.php");
-$oVal = new lepton_validate_request();
+//require_once(dirname(__FILE__)."/classes/class.validate.request.php");
+
+$oVal = newsreader\xvalidate::getInstance();
 $oVal->strict_looking_inside = "post";
 
 $all_names = array (
