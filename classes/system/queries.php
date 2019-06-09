@@ -31,7 +31,7 @@ class queries extends \newsreader\abstracts\addon
     
     static public function insert( $sTableName = NULL, $aFields = array() )
     {
-        $database = \database::getInstance();
+        $database = dbconnect::getInstance()->getConnector(); // \database::getInstance();
         
         $sqlquery = "INSERT INTO `" . $sTableName. "` (`";
         $sqlquery .= implode("`,`", array_keys($aFields))."`) VALUES(";
@@ -58,7 +58,7 @@ class queries extends \newsreader\abstracts\addon
     
     static public function update( $sTableName = NULL, $aFields = array(), $sCondition="" )
     {
-        $database = \database::getInstance();
+        $database = dbconnect::getInstance()->getConnector(); // \database::getInstance();
         
         $query = "UPDATE `" . $sTableName . "` SET ";
 
@@ -88,7 +88,7 @@ class queries extends \newsreader\abstracts\addon
     
     static public function select( $sTableName = "", $aFields=array(), $sCondition="", $bFetchAll=false )
     {
-        $database = \database::getInstance();
+        $database = dbconnect::getInstance()->getConnector(); // \database::getInstance();
         
         $sQuery = "SELECT `". implode("`,`", $aFields)."` FROM `".$sTableName."`"; 
         if(strlen($sCondition) > 0)
