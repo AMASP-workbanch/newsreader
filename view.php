@@ -13,6 +13,11 @@
  *
  */
 
+if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
+{
+    addon\newsreader\classes\newsreaderInit::getInstance();
+}
+
 include_once(WB_PATH . '/modules/newsreader/functions.php');
 if(!defined('LANGUAGE')) {
 	getLanguage();
