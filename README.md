@@ -5,6 +5,9 @@ Pagemodule to handel XML and RDF/RSS (0.9x, 1.0, 2.0) newsfeeds for WBCE/Website
 Just an old module, started by Robert Hase about 2005 for WebsiteBaker.  
 _Nothing more, nothing less._
 
+## Notice
+Aktuelle 0.4.0 ist eine reine Baustelle!
+ 
 #### Require
 - PHP >= 7.2.x
 - WBCE 1.3.3
