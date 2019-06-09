@@ -74,8 +74,7 @@ function output($nf)
 	/**	*************
  	 *	Date and time
  	 */
- 	require_once(dirname(__FILE__)."/classes/class.newsreader_date.php");
-	$oCDate = new newsreader_date();
+	$oCDate = newsreader\xdate::getInstance();
 	
 	$oCDate->set_wb_lang( LANGUAGE );
 	if ($nf['own_dateformat'] != "")

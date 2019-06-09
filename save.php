@@ -23,8 +23,10 @@ if(!defined('WB_PATH'))
     die(header('Location: ../../index.php'));
 }
 
-addon\newsreader\classes\newsreaderInit::getInstance();
-
+if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
+{
+    addon\newsreader\classes\newsreaderInit::getInstance();
+}
 
 // Tells script to update when this page was last updated
 $update_when_modified = true;

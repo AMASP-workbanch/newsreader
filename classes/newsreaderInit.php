@@ -34,9 +34,12 @@ class newsreaderInit
     
     private function initialize()
     {
-        \bin\CoreAutoloader::addNamespace([
-            "newsreader"  => "modules/newsreader/classes/"
-        ]);
+        if(class_exists("\\bin\\CoreAutoloader", true))
+        {
+            \bin\CoreAutoloader::addNamespace([
+                "newsreader"  => "modules/newsreader/classes/"
+            ]);
+        }
         
         require dirname(__dir__)."/info.php";
         $this->version = $module_version;

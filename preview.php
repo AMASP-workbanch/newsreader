@@ -15,7 +15,10 @@
 
 require_once('../../config.php');
 
-addon\newsreader\classes\newsreaderInit::getInstance();
+if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
+{
+    addon\newsreader\classes\newsreaderInit::getInstance();
+}
 
 include_once('./functions.php');
 if(!defined('NEWS_READER_LANGUAGE')) {

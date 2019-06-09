@@ -17,7 +17,10 @@ if ((__FILE__ != $_SERVER['SCRIPT_FILENAME']) === false) {
 	die('<head><title>Access denied</title></head><body><h2 style="color:red;margin:3em auto;text-align:center;">Cannot access this file directly</h2></body></html>');
 }
 
-addon\newsreader\classes\newsreaderInit::getInstance();
+if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
+{
+    addon\newsreader\classes\newsreaderInit::getInstance();
+}
 
 global $admin;
 
