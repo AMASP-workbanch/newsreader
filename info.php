@@ -13,11 +13,14 @@
  *
  */
 
-addon\newsreader\classes\newsreaderInit::getInstance();
+if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
+{
+    addon\newsreader\classes\newsreaderInit::getInstance();
+}
 
 $module_directory   = "newsreader";
 $module_name        = "Newsreader";
-$module_function    = "page";
+$module_function    = "page".(defined("WBCE_VERSION") ? " , preinit" : "");
 $module_version     = "0.4.0";
 $module_platform    = newsreader\system\core::getPlatform();
 $module_author      = "Robert Hase, adm_prg[AT]muc-net.de, Matthias Gallas, Dietrich Roland Pehlke (last)";
