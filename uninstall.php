@@ -18,5 +18,3 @@ if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
 $database->query("DELETE FROM ".TABLE_PREFIX."search WHERE name = 'module' AND value = 'newsreader'");
 $database->query("DELETE FROM ".TABLE_PREFIX."search WHERE extra = 'newsreader'");
 $database->query("DROP TABLE ".TABLE_PREFIX."mod_newsreader");
-
-?>

@@ -53,8 +53,6 @@ if (true === method_exists($admin, 'checkFTAN')) {
 $lang_file = WB_PATH . '/modules/newsreader/languages/' . LANGUAGE . '.php';
 require_once( file_exists($lang_file) ? $lang_file : WB_PATH . '/modules/newsreader/languages/EN.php' );
 
-//require_once(dirname(__FILE__)."/classes/class.validate.request.php");
-
 $oVal = newsreader\xvalidate::getInstance();
 $oVal->strict_looking_inside = "post";
 
@@ -77,23 +75,22 @@ foreach($all_names as $item=>&$options)
 
 $table = TABLE_PREFIX."mod_newsreader";
 
-if (method_exists( $database, "build_and_execute") ) {
+if (method_exists( $database, "build_and_execute") )
+{
 	$database->build_and_execute(
 		'update',
 		$table,
 		$all_values,
 		'section_id = '. $section_id
 	);		
+
 } else {
-	$query = "UPDATE `" . $table . "` SET ";
-
-	if (method_exists( $database, "escapeString") ) {
-		foreach($all_values as $key =>&$value) $query .= "`" . $key . "`='".$database->escapeString($value)."', ";
-	}
 	
-	$query = substr($query, 0, -2)."  WHERE `section_id`=".$section_id;	# Keep in Mind that the $section_id comes from admin-wrapper script!	
-
-	$result = $database->query( $query );
+	newsreader\system\queries::update(
+	   TABLE_PREFIX."mod_newsreader",
+	   $all_values,
+	   "`section_id`=".$section_id 
+	);
 }
 
 // get the newsfeed and save it

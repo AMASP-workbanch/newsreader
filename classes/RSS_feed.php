@@ -64,6 +64,8 @@ HISTORY:
 
 ********************************************************************/
 
+namespace newsreader;
+
 class RSS_feed {
 	// The object of the parser is to determine the "State" of the RSS/XML
 	// and set up the class to respond accordingly. The critical information

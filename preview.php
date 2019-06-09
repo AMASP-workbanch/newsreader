@@ -32,9 +32,9 @@ if(file_exists('./languages/' . NEWS_READER_LANGUAGE . '.php')) {
 }
 
 // create and set object newsfeed
-include_once('./newsparser.php');
+// include_once('./newsparser.php');
 
-$px = new RSS_feed();
+$px = new newsreader\RSS_feed();
 $px->Set_Limit($_REQUEST['MAX_ITEMS']); 
 $px->Show_Image($_REQUEST['SHOW_IMAGE']); 
 $px->Show_Description($_REQUEST['SHOW_DESCRIPTION']);
@@ -246,5 +246,3 @@ $out .='	<h2>' . $nf['ch_title'] . '</h2>
 ';
 
 echo $out;
-
-?>

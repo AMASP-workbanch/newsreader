@@ -114,14 +114,14 @@ function update($uri, $section_id, $show_image, $show_desc, $show_limit, $coding
 	// called by view.php
 	global $database;
 	
-	include(WB_PATH . '/modules/newsreader/newsparser.php');
+	//include(WB_PATH . '/modules/newsreader/newsparser.php');
 
 	$nf = array();
 
 	if ($uri != "") {
 		
 		// create and set object newsfeed
-		$px = new RSS_feed();
+		$px = new newsreader\RSS_feed();
 		$px->Set_Limit($show_limit); 
 		$px->Show_Image($show_image); 
 		$px->Show_Description($show_desc);

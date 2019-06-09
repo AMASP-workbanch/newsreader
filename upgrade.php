@@ -62,4 +62,3 @@ if ($database->is_error() ) {
 
 // Clear all content to force the reader to 'connect' direct after upgrade.
 $database->query("UPDATE `".TABLE_PREFIX."mod_newsreader` SET `content`='' ");
-?>

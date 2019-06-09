@@ -17,6 +17,11 @@ if ((__FILE__ != $_SERVER['SCRIPT_FILENAME']) === false) {
 	die('<head><title>Access denied</title></head><body><h2 style="color:red;margin:3em auto;text-align:center;">Cannot access this file directly</h2></body></html>');
 }
 
+if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
+{
+    addon\newsreader\classes\newsreaderInit::getInstance();
+}
+
 $fields = array(
 	'last_update'	=> Time(),
 	'content'		=> "",
@@ -45,19 +50,9 @@ if (method_exists( $database, "build_and_execute") ) {
 	);
 	
 } else {
-	$sqlquery = 'INSERT INTO `' . TABLE_PREFIX . 'mod_newsreader` (`';
-	$sqlquery .= implode("`,`", array_keys($fields))."`) VALUES(";
 	
-	if (method_exists( $database, "escapeString") ) {
-	
-		foreach($fields as $key => $value) $sqlquery .= "'".$database->escapeString($value)."',";
-	
-	} else {
-		foreach($fields as $key => $value) $sqlquery .= "'".@mysql_real_escape_string($value)."',";
-	} 
-	$sqlquery = substr($sqlquery, 0,-1).")";
-
-	$database->query($sqlquery);
+	newsreader\system\queries::insert(
+	    TABLE_PREFIX."mod_newsreader",
+	    $fields
+	);
 }
-
-?>
