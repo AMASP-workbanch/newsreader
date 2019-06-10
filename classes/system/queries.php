@@ -86,16 +86,82 @@ class queries extends \newsreader\abstracts\addon
         return $database->is_error();
     }
     
-    static public function select( $sTableName = "", $aFields=array(), $sCondition="", $bFetchAll=false )
+    /**
+     *  ::Select
+     *
+     *  @param string   $sTableName A valid table-name (incl. TABLE_PREFIX).
+     *  @param mixed    $aFields    Could be an string, an array, a full query ...
+     *  @param string   $sCondition An optional condition (string) without (first) "WHERE".
+     *  @param boolean  $bFetchAll  Flag to return all results in a nested list or a single one.
+     *
+     *  @returns array  The results as an (assoc.) array - or NULL if failed.
+     * 
+     */
+    static public function select( $sTableName = "", $aFields=array(), $sCondition="", $bFetchAll=true )
     {
         $database = dbconnect::getInstance()->getConnector(); // \database::getInstance();
         
-        $sQuery = "SELECT `". implode("`,`", $aFields)."` FROM `".$sTableName."`"; 
+        // 1
+        // 1.1
+        $sSelectionTerm = "*";
+        
+        switch(true)
+        {
+            case (is_string($aFields)):
+                $aFields = trim($aFields);
+            
+                if( ($aFields === "*") || ( $aFields === "" ) )
+                {
+                    $sSelectionTerm = "*";
+                }
+                else
+                {
+                    // hm ... could be "name id parameter street postalcode"
+                    // comma separated e.g. "name, value, street, postalcode, county"
+                    $aTemp = explode(",", $aFields);
+                    $aTemp = array_map("trim", $aTemp); // trim each element
+                    $sSelectionTerm = "`". implode("`,`", $aTemp)."`";
+                }
+                break;
+            
+            case (is_array($aFields)):
+                if(0 === count($aFields))
+                {
+                    $sSelectionTerm = "*";
+                } else {
+                    $sSelectionTerm = "`". implode("`,`", $aFields)."`";
+                }
+                break;
+                
+            case (is_integer($aFields)):    // 0, -1
+            case (is_null($aFields)):       // NULL
+                $sSelectionTerm = "*";
+                break;
+        
+        }
+        
+        $sQuery = "SELECT ".$sSelectionTerm." FROM `".$sTableName."`"; 
+        
         if(strlen($sCondition) > 0)
         {
             $sQuery .= " WHERE ".$sCondition;
 		
         }
+        
+        if( true === core::getInstance()->isLEPTON() )
+        {
+            // Huston - we've got another problem! ;-)
+            $aResult = [];
+            $database->execute_query(
+                $sQuery,
+                true,
+                $aResult,
+                $bFetchAll
+            );
+            return $aResult;
+        }
+
+        
         $oResult = $database->query( $sQuery );
         
         if($database->is_error())
@@ -110,7 +176,18 @@ class queries extends \newsreader\abstracts\addon
         
         if(true === $bFetchAll)
         {
-            return $oResult->fetchAll( MYSQLI_ASSOC );
+            if(method_exists($oResult, "fetchAll"))
+            {
+                return $oResult->fetchAll( MYSQLI_ASSOC );
+            } else {
+                // Huston: we've got a problem (with WBCE <= 1.3.3)
+                $aAllResults = [];
+                while( $aRow = $oResult->fetchRow( MYSQLI_ASSOC ) )
+                {
+                    $aAllResults[] = &$aRow;
+                }
+                return $aAllResults;
+            }
         
         } else {
         

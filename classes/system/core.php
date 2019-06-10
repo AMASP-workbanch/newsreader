@@ -74,4 +74,19 @@ class core extends \newsreader\abstracts\addon
                 return self::IS_UNKNOWN;
         }
     }
+    
+    public static function isWB()
+    {
+        return (static::$instance->system === self::IS_WB);
+    }
+    
+    public static function isWBCE()
+    {
+        return (static::$instance->system === self::IS_WBCE);
+    }
+    
+    public static function isLEPTON()
+    {
+        return (static::$instance->system === self::IS_LEPTON);
+    }
 }
