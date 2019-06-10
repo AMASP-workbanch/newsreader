@@ -32,7 +32,7 @@ class dbconnect extends \newsreader\abstracts\addon
         {
             if(true === method_exists("\\database", "getInstance"))
             {
-                $this->db_instance = database::getInstance();
+                $this->db_instance = \database::getInstance();
             
             } else {
                 global $database;
