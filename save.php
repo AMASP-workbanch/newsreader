@@ -18,11 +18,7 @@ if (!defined('SYSTEM_RUN'))
     require( dirname(dirname((__DIR__))).'/config.php');
 }
 
-if(!defined('WB_PATH'))
-{
-    die(header('Location: ../../index.php'));
-}
-
+//  For WB only - WBCE use another way
 if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
 {
     addon\newsreader\classes\newsreaderInit::getInstance();
@@ -32,7 +28,7 @@ if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
 $update_when_modified = true;
 // Include WB admin wrapper script
 $admin_header = false; // suppress to print the header, so no new FTAN will be set
-require(WB_PATH.'/modules/admin.php');
+require(WB_PATH."/modules/admin.php");
 
 $tan_ok = false;
 if (true === method_exists($admin, 'checkFTAN')) {
@@ -50,8 +46,11 @@ if (true === method_exists($admin, 'checkFTAN')) {
 	$admin->print_header();
 }
    
-$lang_file = WB_PATH . '/modules/newsreader/languages/' . LANGUAGE . '.php';
-require_once( file_exists($lang_file) ? $lang_file : WB_PATH . '/modules/newsreader/languages/EN.php' );
+$lang_file = __DIR__.'/languages/' . LANGUAGE . '.php';
+require_once (file_exists($lang_file))
+    ? $lang_file
+    : __DIR__.'/languages/EN.php'
+    ;
 
 $oVal = newsreader\xvalidate::getInstance();
 $oVal->strict_looking_inside = "post";
@@ -70,16 +69,16 @@ $all_names = array (
 
 $all_values = array ();
 
-foreach($all_names as $item=>&$options) 
-	$all_values[$item] = $oVal->get_request($item, $options['default'], $options['type'], $options['range']);
-
-$table = TABLE_PREFIX."mod_newsreader";
+foreach($all_names as $item=>&$options)
+{ 
+    $all_values[$item] = $oVal->get_request($item, $options['default'], $options['type'], $options['range']);
+}
 
 if (method_exists( $database, "build_and_execute") )
 {
 	$database->build_and_execute(
 		'update',
-		$table,
+		TABLE_PREFIX."mod_newsreader",
 		$all_values,
 		'section_id = '. $section_id
 	);		
@@ -94,8 +93,6 @@ if (method_exists( $database, "build_and_execute") )
 }
 
 // get the newsfeed and save it
-// include_once(WB_PATH . '/modules/newsreader/functions.php');
-
 $result = newsreader\newsreader::getInstance()->update(
 	$all_values['uri'],
 	$section_id,
@@ -127,5 +124,3 @@ if($database->is_error()) {
 }
 
 $admin->print_footer();
-
-?>

@@ -214,16 +214,6 @@ $out = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://w
 		</table>
 
 		<br />';
-		/*
-		if($nf['coding_from'] != '--' && $nf['coding_to'] != '--')
-		{
-			include_once('./ConvertCharset.class.php');
-			$NewEncoding = new ConvertCharset;
-			$nf['ch_title'] = $NewEncoding->Convert($nf['ch_title'],$nf['coding_from'] , $nf['coding_to'], 0);
-			$nf['ch_desc'] = $NewEncoding->Convert($nf['ch_desc'],$nf['coding_from'] , $nf['coding_to'], 0);
-			$nf['content'] = $NewEncoding->Convert($nf['content'],$nf['coding_from'] , $nf['coding_to'], 0);
-		}
-		*/
 $out .=	'<b>Output:</b>
 			<hr />
 			<br />

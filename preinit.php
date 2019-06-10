@@ -12,7 +12,9 @@
  * @lastmodified    Jun 2019 
  *
  */
- 
+
+/**
+ *  For WBCE
+ */
 require_once __DIR__."/classes/system/preload.php";
- 
 newsreader\system\preload::initialize();
