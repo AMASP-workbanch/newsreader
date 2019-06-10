@@ -92,7 +92,7 @@ $out = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://w
 				fontsize: 14px;
 			}
 			td {
-				background-color: #336699;
+				background-color: #968922bd;
 				color: #FFFFFF;
 				padding-left: 10px;
 				height: 20px;

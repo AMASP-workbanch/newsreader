@@ -33,14 +33,14 @@ $out = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://w
 			}
 			.colone {
 				font-weight: bold;
-				background-color: #009900;
+				background-color: #968922bd;
 				color: #FFFFFF;
 				width: 200px;
 				padding-left: 10px;
 				height: 24px;
 			}
 			.coltwo {
-				background-color: #DDDDDD;
+				background-color: #EEEEEE;
 				color: #000000;
 				padding-left: 10px;
 				height: 24px;
