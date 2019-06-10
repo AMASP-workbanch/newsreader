@@ -1,0 +1,86 @@
+{% autoescape false %}
+
+<div align="left">    
+    <a href="javascript:popUp('{{ WB_URL }}/modules/newsreader/help.php/?lang={{ LANGUAGE }}')" alt="Info" title="Newsreader Info">
+		<img src="{{ WB_URL }}/modules/newsreader/images/info_icon.png" border=0 alt="Info" title="Newsreader Info" />
+	</a>
+</div>
+
+<form name="newsreader{{ SECTION_ID }}" id="newsreader{{ SECTION_ID }}" action="{{ WB_URL }}/modules/newsreader/save.php" method="post">
+	  <input type="hidden" name="page_id" value="{{ PAGE_ID }}" />
+	  <input type="hidden" name="section_id" value="{{ SECTION_ID }}" />
+	  <input type="hidden" name="sqltype" value="{{ SQLTYPE }}" />
+	  <input type="hidden" name="job" value="save" />
+	  {{ FTAN }}
+	  <table width=100%>
+			<tr>
+				<td>{{ TEXT_RSS_URI }}</td>
+				<td><input name="uri" size="50" maxlength="255" value="{{ URI }}" /></td>
+			</tr>
+			<tr>
+				<td>{{ TEXT_CYCLE }}</td>
+				<td>
+					<input name="cycle" size="5" maxlength="5" value="{{ CYCLE }}" />
+					&nbsp;ss
+				</td>
+			</tr>
+			<tr>
+				<td>{{ TEXT_LAST_UPDATED }}</td>
+				<td>{{ LAST_UPDATE }}</td>
+			</tr>
+			<tr>
+				<td>{{ TEXT_OWN_DATEFORMAT }}</td>
+				<td><input name="own_dateformat" size="50" maxlength="255" value="{{ OWN_DATEFORMAT }}" /></td>
+			</tr>
+			<tr>
+				<td>{{ TEXT_SHOW_IMAGE }}</td>
+				<td><input name="show_image" type='checkbox' value="1" {{ SHOW_IMAGECKD }} /></td>
+			</tr>
+			<tr>
+				<td>{{ TEXT_SHOW_DESCRIPTION }}</td>
+				<td><input name="show_desc" type='checkbox' value="1" {{ SHOW_DESCCKD }} /></td>
+			</tr>
+			<tr>
+				<td>{{ TEXT_MAX_ITEMS }}</td>
+				<td><input name="show_limit" size="2" maxlength="2" value="{{ SHOW_LIMIT }}" /></td>
+			</tr>
+			<tr>
+				<td>{{ TEXT_CODING }}</td>
+				<td>
+					{{ TEXT_FROM }}
+					<select name="coding_from">
+					{{ SELECT_FROM }}	
+					</select>
+					{{ TEXT_TO }}
+					<select name="coding_to">
+					{{ SELECT_TO }}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>{{ TEXT_USE_UTF8_ENCODING }}</td>
+				<td><input name="use_utf8_encode" type='checkbox' value="1" {{ USE_UTF8_ENCODING }} /></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td><td>&nbsp;</td>
+			</tr>
+			</table>
+    <table class="newsreader_interface">
+			<tr>
+				<td align="center">
+					<input type="submit" value="{{ TEXT_SAVE }}" class="newsreader_interface" />
+				</td>
+				<td align="center">
+					<input type="button" value="{{ TEXT_SAVE }} & {{ TEXT_BACK }}" class="newsreader_interface" onclick="this.form.job.value='save_back';this.form.submit();"/>
+				</td>
+				<td align="center">
+					<input type="button" value="{{ TEXT_CANCEL }}" onclick="javascript: window.location = 'index.php';" class="newsreader_interface" />
+				</td>
+				<td align="center">
+					<input type="button" value="{{ TEXT_PREVIEW }}" onclick="javascript:testRDF('{{ WB_URL }}/modules/newsreader/preview.php', 'newsreader{{ SECTION_ID }}');" class="newsreader_interface" />
+				</td>
+			</tr>
+    </table>
+</form>
+	  
+{% endautoescape %}

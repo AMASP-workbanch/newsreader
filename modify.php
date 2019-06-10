@@ -131,18 +131,12 @@ $form_values = array(
 	'TEXT_PREVIEW' => $MOD_NEWSREADER_TEXT['PREVIEW']
 );
 
-if (!class_exists('Template', true))
-{
-    require(WB_PATH.'/include/phplib/template.inc');
-}
+$oTWIG = newsreader\twig\adaptor::getInstance();
+$oTWIG->registerModule( "newsreader" );
 
-$template = new Template( dirname(__FILE__)."/templates/" );
-$template->set_file('page', 'modify.htt');
-$template->set_block('page', 'main_block', 'main');
-
-$template->set_var(	$form_values );
-
-$template->parse('main', 'main_block', false);
-$template->pparse('output', 'page', false);
+echo $oTWIG->render(
+    "@newsreader/modify.lte",
+    $form_values
+);
 
 ?>

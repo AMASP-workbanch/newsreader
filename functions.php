@@ -31,45 +31,11 @@ function output($nf)
 	global $wb;
 	global $MOD_NEWSREADER_TEXT;
 	
-	$sModulPath = str_replace('\\', '/', __DIR__).'/';  
-	$sModulname = basename(__DIR__);
-
-	$lang_file = WB_PATH . "/modules/".$sModulname."/languages/" . LANGUAGE . ".php";
-	require( file_exists($lang_file) ? $lang_file : WB_PATH . "/modules/".$sModulname ."/languages/EN.php");
-	
-	$lookup_paths = array();
-
-	$lookup_paths[] = ($wb->page['template'] != "")
-		? "/templates/".$wb->page['template']."/templates/".$sModulname."/"
-		: "/templates/".DEFAULT_TEMPLATE."/templates/".$sModulname."/"
-		;
-
-	$lookup_paths[] = "/modules/".$sModulname."/templates/";
-	
-	$template_dir = "";
-	foreach($lookup_paths as &$path)
-	{
-		if (file_exists( WB_PATH.$path."view.htt" )) {
-			$template_dir = WB_PATH.$path;
-			break;
-		}
-	}
-
-	if ($template_dir == "")
-	{
-		echo "Error: can't find any valid template-file for the view.php. Please check installation.";
-		return NULL;
-	}	
-
-    if (!class_exists('Template', true))
-    {
-        require(WB_PATH.'/include/phplib/template.inc');
-    }
-	
-	$template = new Template( $template_dir );
-	$template->set_file('page', 'view.htt');
-	$template->set_block('page', 'main_block', 'main');
-	$template->set_block('main_block', 'image_block', 'image');
+	$lang_file = __DIR__."/languages/" . LANGUAGE . ".php";
+	require ( true === file_exists($lang_file) ) 
+	    ? $lang_file
+	    : __DIR__."/languages/EN.php"
+	    ;
 	
 	/**	*************
  	 *	Date and time
@@ -86,27 +52,25 @@ function output($nf)
 	
 	$last_update = $oCDate->toHTML( $nf['last_update'] + (defined('TIMEZONE') ? TIMEZONE : 0) );
 	
-	$template->set_var(
-		array(
-            'IMG_LINK'	=> $nf['img_link'],
-            'IMG_TITLE'	=> $nf['img_title'],
-            'IMG_URI'	=> $nf['img_uri'],
-            'CH_TITLE'	=> $nf['ch_title'],
-            'CH_DESC'	=> $nf['ch_desc'],
-            'TEXT_LAST_UPDATED'	=> $MOD_NEWSREADER_TEXT['LAST_UPDATED'], # 1: language-file!
-            'LAST_UPDATED_TIME'	=> $last_update,
-            'CONTENT'	=> $nf['content']
-        )
+	$aPageValues = [
+        'IMG_LINK'	=> $nf['img_link'],
+        'IMG_TITLE'	=> $nf['img_title'],
+        'IMG_URI'	=> $nf['img_uri'],
+        'CH_TITLE'	=> $nf['ch_title'],
+        'CH_DESC'	=> $nf['ch_desc'],
+        'TEXT_LAST_UPDATED'	=> $MOD_NEWSREADER_TEXT['LAST_UPDATED'], # 1: language-file!
+        'LAST_UPDATED_TIME'	=> $last_update,
+        'CONTENT'	=> $nf['content'],
+        'show_image'    => ($nf['img_uri'] != "")
+    ];
+
+    $oTWIG = newsreader\twig\adaptor::getInstance();
+    $oTWIG->registerModule( "newsreader" );
+
+    echo $oTWIG->render(
+        "@newsreader/view.lte",
+        $aPageValues
     );
-	
-	if ($nf['img_uri'] != "")
-	{
-		$template->parse('image', 'image_block', true); 
-	}
-	
-	// Parse template object
-	$template->parse('main', 'main_block', false);
-	$template->pparse('output', 'page', false);
 }
 
 function update($uri, $section_id, $show_image, $show_desc, $show_limit, $coding_from, $coding_to, $use_utf8_encode=0, $own_dateformat="")

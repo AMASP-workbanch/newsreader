@@ -1,0 +1,14 @@
+{% autoescape false %}
+<!-- internal module template [twig]-->
+<div class="newsreader">
+	
+	{% if(show_image == true) %}
+<a href="{{ IMG_LINK }}" title="{{ IMG_TITLE }}" target="_blank"><img src="{{ IMG_URI }}" alt="{{ IMG_TITLE }}" title="{{ IMG_TITLE }}" /></a>
+	{% endif %}
+	
+	<h2>{{ CH_TITLE }}</h2>
+	<div class="nr_description">{{ CH_DESC }}</div>
+	<div class="discreet">{{ TEXT_LAST_UPDATED }}: {{ LAST_UPDATED_TIME }}</div>
+	<div class="nr_content">{{ CONTENT }}</div>
+</div>
+{% endautoescape %}
