@@ -1,4 +1,7 @@
 <?php
+
+namespace newsreader;
+
 /**
  * @author Mikolaj Jedrzejak <mikolajj@op.pl>
  * @copyright Copyright Mikolaj Jedrzejak (c) 2003-2004

@@ -17,28 +17,44 @@ if ((__FILE__ != $_SERVER['SCRIPT_FILENAME']) === false) {
 	die('<head><title>Access denied</title></head><body><h2 style="color:red;margin:3em auto;text-align:center;">Cannot access this file directly</h2></body></html>');
 }
 
+// init for WB, WBCE handle in another way
 if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
 {
     addon\newsreader\classes\newsreaderInit::getInstance();
 }
 
+// Get instance of the module-class
+$oNEWSREADER = newsreader\newsreader::getInstance();
+
 global $admin;
 
-include_once(WB_PATH . '/modules/newsreader/functions.php');
-// include core functions to edit the optional module CSS files (frontend.css, backend.css)
-include_once(WB_PATH .'/framework/module.functions.php');
+include_once WB_PATH .'/framework/module.functions.php'; // ???
 
-if(!defined('LANGUAGE')) getLanguage();
+$lang_file = __DIR__.'/languages/' . LANGUAGE . '.php';
+require_once ( file_exists($lang_file) )
+    ? $lang_file
+    : __DIR__.'/languages/EN.php'
+    ;
 
-$lang_file = WB_PATH . '/modules/newsreader/languages/' . LANGUAGE . '.php';
-require_once( file_exists($lang_file) ? $lang_file : WB_PATH . '/modules/newsreader/languages/EN.php' );
+$aFields = [
+    'uri',
+    'cycle',
+    'last_update',
+    'show_image',
+    'show_desc',
+    'show_limit',
+    'coding_from',
+    'coding_to',
+    'use_utf8_encode',
+    'own_dateformat'
+];
 
-$sqlquery = "SELECT uri, cycle, last_update, show_image, show_desc, show_limit, coding_from, coding_to,use_utf8_encode, own_dateformat
-			FROM ".TABLE_PREFIX."mod_newsreader
-			WHERE section_id = '$section_id'";
-$sqlresult = $database->query($sqlquery);
-
-$sqlrow = $sqlresult->fetchRow( MYSQL_ASSOC );
+$sqlrow = newsreader\system\queries::select(
+    TABLE_PREFIX."mod_newsreader",
+    $aFields,
+    "`section_id` = ".$section_id,
+    false
+);
 
 $uri = $sqlrow['uri'];
 $cycle = $sqlrow['cycle'];
@@ -80,7 +96,7 @@ if($own_dateformat != "") {
 	
 $last_update = $oCDate->toHTML( $last_update + (defined('TIMEZONE') ? TIMEZONE : 0) );
 
-$arrOptions = readCharsets();
+$arrOptions = $oNEWSREADER->readCharsets();
 
 $select_from_options = "";
 foreach($arrOptions as &$option){

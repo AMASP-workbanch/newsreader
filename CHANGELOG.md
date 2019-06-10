@@ -4,6 +4,9 @@ Please note: This change log may not be accurate
 
 ------------------------------------------------------------------------------------------
 ### 0.4.0
+- Add classes
+- Use twig for backend/frontend
+- Remove old template files
 
 ### 0.3.10
 - Minor changes in the readme

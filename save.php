@@ -94,8 +94,9 @@ if (method_exists( $database, "build_and_execute") )
 }
 
 // get the newsfeed and save it
-include_once(WB_PATH . '/modules/newsreader/functions.php');
-$result = update(
+// include_once(WB_PATH . '/modules/newsreader/functions.php');
+
+$result = newsreader\newsreader::getInstance()->update(
 	$all_values['uri'],
 	$section_id,
 	$all_values['show_image'],

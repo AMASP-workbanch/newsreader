@@ -18,11 +18,14 @@ if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
     addon\newsreader\classes\newsreaderInit::getInstance();
 }
 
-include_once(WB_PATH . '/modules/newsreader/functions.php');
+$oNEWSREADER = newsreader\newsreader::getInstance();
+
+//include_once(WB_PATH . '/modules/newsreader/functions.php');
+/*
 if(!defined('LANGUAGE')) {
 	getLanguage();
 }
-
+*/
 ////////////////////////////////////////////////////////////////////////
 // don't change anything below until you're knowing what you're doing //
 ////////////////////////////////////////////////////////////////////////
@@ -60,8 +63,8 @@ if (!defined('DATETIME'))
 }
 
 if( ( ( $sqlrow['last_update'] == 0 || strlen($sqlrow['content']) == 0) ) || $last_update < time() ) {
-	output(
-		update(
+	$oNEWSREADER->output(
+		$oNEWSREADER->update(
 			$sqlrow['uri'],
 			$section_id,
 			$sqlrow['show_image'],
@@ -74,7 +77,7 @@ if( ( ( $sqlrow['last_update'] == 0 || strlen($sqlrow['content']) == 0) ) || $la
 	));
 }
 else {
-	output( $sqlrow );
+	$oNEWSREADER->output( $sqlrow );
 }
 
 ?>

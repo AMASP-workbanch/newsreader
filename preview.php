@@ -20,9 +20,9 @@ if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
     addon\newsreader\classes\newsreaderInit::getInstance();
 }
 
-include_once('./functions.php');
+
 if(!defined('NEWS_READER_LANGUAGE')) {
-	define('NEWS_READER_LANGUAGE', getLanguage());
+	define('NEWS_READER_LANGUAGE', newsreader\newsreader::getInstance()->getLanguage());
 }
 
 if(file_exists('./languages/' . NEWS_READER_LANGUAGE . '.php')) {
