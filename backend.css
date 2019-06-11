@@ -25,6 +25,14 @@ form[name^="newsreader"] {
 select[name="coding_from"],
 select[name="coding_to"] {
     width: 150px;
-    display: inherit;
+    display: inline-block;
     margin-right: 12px;
+    margin-left: 6px;
+}
+
+.newsreader dt
+{
+    display: block;
+    float: left;
+    min-width: 150px !important;
 }
