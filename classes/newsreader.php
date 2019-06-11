@@ -72,8 +72,7 @@ class newsreader extends abstracts\addon
             'CH_DESC'	=> $nf['ch_desc'],
             'TEXT_LAST_UPDATED'	=> $MOD_NEWSREADER_TEXT['LAST_UPDATED'], # 1: language-file!
             'LAST_UPDATED_TIME'	=> $last_update,
-            'CONTENT'	=> $nf['content'],
-            'show_image'    => ($nf['img_uri'] != "")
+            'CONTENT'	=> $nf['content']
         ];
 
         $oTWIG = twig\adaptor::getInstance();

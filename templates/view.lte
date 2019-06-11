@@ -2,7 +2,7 @@
 <!-- internal module template [twig]-->
 <div class="newsreader">
 	
-	{% if(show_image == true) %}
+	{% if ( IMG_URI != "" == true ) %}
 <a href="{{ IMG_LINK }}" title="{{ IMG_TITLE }}" target="_blank"><img src="{{ IMG_URI }}" alt="{{ IMG_TITLE }}" title="{{ IMG_TITLE }}" /></a>
 	{% endif %}
 	
