@@ -131,39 +131,39 @@ $out = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://w
  		</style>
 	</head>
 	<body>
-		<h1>' . $MOD_NEWSREADER_HEAD['CONFIG_DISPL'] . '</h1>
+		<h1>' . newsreader\language::CONFIG_DISPL . '</h1>
 		<br />
 		<table width="100%" id="configuration">
 			<tr>
-				<th>' . $MOD_NEWSREADER_TEXT['Configuration'] . '</th>
-				<th>' . $MOD_NEWSREADER_TEXT['Request'] . '</th>
+				<th>' . newsreader\language::Configuration . '</th>
+				<th>' . newsreader\language::MOD_Request . '</th>
 			</tr>
 			<tr>
 				<td>' . $MOD_NEWSREADER_TEXT['RSS_URI'] . '</td>
 				<td>' . $_REQUEST['RSS_URI'] . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['SHOW_IMAGE'] . '</td>
+				<td>' . newsreader\language::SHOW_IMAGE . '</td>
 				<td>' . $_REQUEST['SHOW_IMAGE'] . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['SHOW_DESCRIPTION'] . '</td>
+				<td>' . newsreader\language::SHOW_DESCRIPTION . '</td>
 				<td>' . $_REQUEST['SHOW_DESCRIPTION'] . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['MAX_ITEMS'] . '</td>
+				<td>' . newsreader\language::MAX_ITEMS . '</td>
 				<td>' . $_REQUEST['MAX_ITEMS'] . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['CODING'] . '</td>
+				<td>' . newsreader\language::CODING . '</td>
 				<td>' . $TEXT['FROM'] . ': ' . $_REQUEST['CODE_FROM'] . ' ' . $TEXT['TO'] . ': ' . $_REQUEST['CODE_TO'] . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['USE_UTF8_ENCODING'] . '</td>
+				<td>' . newsreader\language::USE_UTF8_ENCODING . '</td>
 				<td>' . ($nf['use_utf8_encoding'] == 1 ? $TEXT['YES'] : $TEXT['NO']) . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['OWN_DATEFORMAT'] . '</td>
+				<td>' . newsreader\language::OWN_DATEFORMAT . '</td>
 				<td>' . ($_REQUEST['OWN_DATEFORMAT'] != "" ? ($_REQUEST['OWN_DATEFORMAT'] . " (E.g.: " .$last_update. ")") : "" ) .'</td>
 			</tr>
 		</table>
@@ -172,44 +172,44 @@ $out = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://w
 
 		<table width="100%" id="ressourcen">
 			<tr>
-				<th>' . $MOD_NEWSREADER_TEXT['Resource'] . '</th>
-				<th>' . $MOD_NEWSREADER_TEXT['Value'] . '</th>
-				<th>' . $MOD_NEWSREADER_TEXT['Description'] . '</th>
+				<th>' . newsreader\language::MOD_Resource . '</th>
+				<th>' . newsreader\language::MOD_Value . '</th>
+				<th>' . newsreader\language::MOD_Description . '</th>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['RSS_URI'] . '</td>
+				<td>' . newsreader\language::RSS_URI . '</td>
 				<td>' . $px->URL . '</td>
-				<td>' . $MOD_NEWSREADER_MSG['RSS_URI'] . '</td>
+				<td>' . newsreader\language::MSG_RSS_URI . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['Image-URI'] . '</td>
+				<td>' . newsreader\language::Image_URI . '</td>
 				<td>' . $nf['img_uri'] . '<br />'. (($nf['img_uri'] != "") ? '<img src="' . $nf['img_uri'] . '" alt="logo" />' : '') .'</td>
-				<td>' . $MOD_NEWSREADER_DESC['Image-URI'] . '</td>
+				<td>' . newsreader\language::DESC_Image_URI . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['Image-Title'] . '</td>
+				<td>' . newsreader\language::Image_Title . '</td>
 				<td>' . $nf['img_title'] . '</td>
-				<td>' . $MOD_NEWSREADER_DESC['Image-Title'] . '</td>
+				<td>' . newsreader\language::DESC_Image_Title . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['Image-Link'] . '</td>
+				<td>' . newsreader\language::Image_Link . '</td>
 				<td>' . $nf['img_link'] . '</td>
-				<td>' . $MOD_NEWSREADER_DESC['Image-Link'] . '</td>
+				<td>' . newsreader\language::DESC_Image_Link . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['Channel-Title'] . '</td>
+				<td>' . newsreader\language::Channel_Title . '</td>
 				<td>' . $nf['ch_title'] . '</td>
-				<td>' . $MOD_NEWSREADER_DESC['Channel-Title'] . '</td>
+				<td>' . newsreader\language::DESC_Channel_Title . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['Channel-Desc'] . '</td>
+				<td>' . newsreader\language::Channel_Desc . '</td>
 				<td>' . $nf['ch_desc'] . '</td>
-				<td>' . $MOD_NEWSREADER_DESC['Channel-Desc'] . '</td>
+				<td>' . newsreader\language::DESC_Channel_Desc . '</td>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['Channel-Link'] . '</td>
+				<td>' . newsreader\language::Channel_Link . '</td>
 				<td>' . $nf['ch_link'] . '</td>
-				<td>' . $MOD_NEWSREADER_DESC['Channel-Link'] . '</td>
+				<td>' . newsreader\language::DESC_Channel_Link . '</td>
 			</tr>
 		</table>
 
@@ -225,7 +225,7 @@ $out .= '	<a href="' . $nf['img_link'] . '" title="' . $nf['img_title'] . '">
 }
 $out .='	<h2>' . $nf['ch_title'] . '</h2>
 	<div class="nr_description">' . $nf['ch_desc'] . '</div>
-	<div class="discreet">' . $MOD_NEWSREADER_TEXT['LAST_UPDATED'] . ': ' . date("Y-m-d H:i:s", time() + (defined('TIMEZONE') ? TIMEZONE : 0)) . '</div>
+	<div class="discreet">' . newsreader\language::LAST_UPDATED . ': ' . date("Y-m-d H:i:s", time() + (defined('TIMEZONE') ? TIMEZONE : 0)) . '</div>
 	<div class="nr_content">' .
 		$nf['content'] .
 '	</div>
