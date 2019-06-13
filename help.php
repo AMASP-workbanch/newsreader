@@ -13,10 +13,11 @@
  *
  */
 
-if(file_exists('./languages/' . $_REQUEST['lang'] . '.php')) {
-	include('./languages/' . $_REQUEST['lang'] . '.php');
-} else {
-	include('./languages/EN.php');
+require_once('../../config.php');
+
+if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
+{
+    addon\newsreader\classes\newsreaderInit::getInstance();
 }
 
 // output
@@ -55,40 +56,40 @@ $out = '
 <body>
 	<table>
 		<tr>
-			<td class="colone">' .$MOD_NEWSREADER_TEXT['RSS_URI']. '</td>
-			<td class="coltwo">' .$MOD_NEWSREADER_MSG['RSS_URI']. '</td>
+			<td class="colone">' .newsreader\language::RSS_URI. '</td>
+			<td class="coltwo">' .newsreader\language::MSG_RSS_URI. '</td>
 		</tr>
 		<tr>
-			<td class="colone">' .$MOD_NEWSREADER_TEXT['CYCLE']. '</td>
-			<td class="coltwo">' .$MOD_NEWSREADER_MSG['CYCLE']. '</td>
+			<td class="colone">' .newsreader\language::CYCLE. '</td>
+			<td class="coltwo">' .newsreader\language::MSG_CYCLE. '</td>
 		</tr>
 		<tr>
-			<td class="colone">' .$MOD_NEWSREADER_TEXT['LAST_UPDATED']. '</td>
-			<td class="coltwo">' .$MOD_NEWSREADER_MSG['LAST_UPDATED']. '</td>
+			<td class="colone">' .newsreader\language::LAST_UPDATED. '</td>
+			<td class="coltwo">' .newsreader\language::MSG_LAST_UPDATED. '</td>
 		</tr>
 		<tr>
-			<td class="colone">' .$MOD_NEWSREADER_TEXT['OWN_DATEFORMAT']. '</td>
-			<td class="coltwo">' .$MOD_NEWSREADER_MSG['OWN_DATEFORMAT']. '</td>
+			<td class="colone">' .newsreader\language::OWN_DATEFORMAT. '</td>
+			<td class="coltwo">' .newsreader\language::MSG_OWN_DATEFORMAT. '</td>
 		</tr>
 		<tr>
-			<td class="colone">' .$MOD_NEWSREADER_TEXT['SHOW_IMAGE']. '</td>
-			<td class="coltwo">' .$MOD_NEWSREADER_MSG['SHOW_IMAGE']. '</td>
+			<td class="colone">' .newsreader\language::SHOW_IMAGE. '</td>
+			<td class="coltwo">' .newsreader\language::MSG_SHOW_IMAGE. '</td>
 		</tr>
 		<tr>
-			<td class="colone">' .$MOD_NEWSREADER_TEXT['SHOW_DESCRIPTION']. '</td>
-			<td class="coltwo">' .$MOD_NEWSREADER_MSG['SHOW_DESCRIPTION']. '</td>
+			<td class="colone">' .newsreader\language::SHOW_DESCRIPTION. '</td>
+			<td class="coltwo">' .newsreader\language::MSG_SHOW_DESCRIPTION. '</td>
 		</tr>
 		<tr>
-			<td class="colone">' .$MOD_NEWSREADER_TEXT['MAX_ITEMS']. '</td>
-			<td class="coltwo">' .$MOD_NEWSREADER_MSG['MAX_ITEMS']. '</td>
+			<td class="colone">' .newsreader\language::MAX_ITEMS. '</td>
+			<td class="coltwo">' .newsreader\language::MSG_MAX_ITEMS. '</td>
 		</tr>
 		<tr>
-			<td class="colone">' .$MOD_NEWSREADER_TEXT['CODING']. '</td>
-			<td class="coltwo">' .$MOD_NEWSREADER_MSG['CODING']. '</td>
+			<td class="colone">' .newsreader\language::CODING. '</td>
+			<td class="coltwo">' .newsreader\language::MSG_CODING. '</td>
 		</tr>
 		<tr>
-			<td class="colone">' .$MOD_NEWSREADER_TEXT['USE_UTF8_ENCODING']. '</td>
-			<td class="coltwo">' .$MOD_NEWSREADER_MSG['USE_UTF8_ENCODING']. '</td>
+			<td class="colone">' .newsreader\language::USE_UTF8_ENCODING. '</td>
+			<td class="coltwo">' .newsreader\language::MSG_USE_UTF8_ENCODING. '</td>
 		</tr>
 	</table>
 </body>

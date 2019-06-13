@@ -41,7 +41,7 @@ class newsreader extends abstracts\addon
         */
 
         global $wb;
-        global $MOD_NEWSREADER_TEXT;
+        global $MOD_NEWSREADER;
     
         $lang_file = dirname(__DIR__)."/languages/" . LANGUAGE . ".php";
         require ( true === file_exists($lang_file) ) 
@@ -70,7 +70,7 @@ class newsreader extends abstracts\addon
             'IMG_URI'	=> $nf['img_uri'],
             'CH_TITLE'	=> $nf['ch_title'],
             'CH_DESC'	=> $nf['ch_desc'],
-            'TEXT_LAST_UPDATED'	=> $MOD_NEWSREADER_TEXT['LAST_UPDATED'], # 1: language-file!
+            'TEXT_LAST_UPDATED'	=> $MOD_NEWSREADER['LAST_UPDATED'], # 1: language-file!
             'LAST_UPDATED_TIME'	=> $last_update,
             'CONTENT'	=> $nf['content']
         ];

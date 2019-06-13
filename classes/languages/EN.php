@@ -15,14 +15,14 @@
 
 namespace newsreader\languages;
 
-class EN 
+class EN extends \newsreader\abstracts\languages 
 {
     //  ---- Part 1
     const RSS_URI           = "RSS-URI";
     const CYCLE             = "Update-Cycle";
     const LAST_UPDATED      = "last updated";
     const SHOW_IMAGE        = "show Logo";
-    const SHOW_DESCRIPTION    = "show Description";
+    const SHOW_DESCRIPTION  = "show Description";
     const MAX_ITEMS         = "max. Items";
     const CODING            = "Coding";
     const USE_UTF8_ENCODING = "Use UTF-8 encoding";

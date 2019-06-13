@@ -139,7 +139,7 @@ $out = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://w
 				<th>' . newsreader\language::MOD_Request . '</th>
 			</tr>
 			<tr>
-				<td>' . $MOD_NEWSREADER_TEXT['RSS_URI'] . '</td>
+				<td>' . newsreader\language::RSS_URI . '</td>
 				<td>' . $_REQUEST['RSS_URI'] . '</td>
 			</tr>
 			<tr>
