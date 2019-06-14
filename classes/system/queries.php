@@ -20,27 +20,43 @@ class queries extends \newsreader\abstracts\addon
     
     public static $instance;
     
+    public static $oDatabase = NULL;
+    
     /**
      *  initialize the instance of this class.
      *
      */
     public function initialize()
     {
-
+        self::$oDatabase = dbconnect::getInstance()->getConnector();
+    }
+    
+    /**
+     *  Just a short test if the db-connector still exists.
+     *
+     */
+    static public function testDB()
+    {
+        if(self::$oDatabase === NULL)
+        {
+            self::getInstance();
+        }
     }
     
     static public function insert( $sTableName = NULL, $aFields = array() )
     {
-        $database = dbconnect::getInstance()->getConnector(); // \database::getInstance();
+        //$database = dbconnect::getInstance()->getConnector(); // \database::getInstance();
+        
+        self::testDB();
         
         $sqlquery = "INSERT INTO `" . $sTableName. "` (`";
         $sqlquery .= implode("`,`", array_keys($aFields))."`) VALUES(";
 	
-        if (method_exists( $database, "escapeString") )
+        if (method_exists( self::$oDatabase, "escapeString") )
         {
 	        foreach($aFields as $key => $value)
 	        {
-	            $sqlquery .= "'".$database->escapeString($value)."',";
+	            $sqlquery .= "'".self::$oDatabase->escapeString($value)."',";
 	        }
 	    } else {
             foreach($aFields as $key => $value)
@@ -51,22 +67,24 @@ class queries extends \newsreader\abstracts\addon
 	    
 	    $sqlquery = substr($sqlquery, 0,-1).")";
 
-	    $database->query($sqlquery);
+	    self::$oDatabase->query($sqlquery);
         
-        return $database->is_error();
+        return !(self::$oDatabase->is_error());
     }
     
     static public function update( $sTableName = NULL, $aFields = array(), $sCondition="" )
     {
-        $database = dbconnect::getInstance()->getConnector(); // \database::getInstance();
+        // $database = dbconnect::getInstance()->getConnector(); // \database::getInstance();
+        
+        self::testDB();
         
         $query = "UPDATE `" . $sTableName . "` SET ";
 
-	    if (method_exists( $database, "escapeString") )
+	    if (method_exists( self::$oDatabase, "escapeString") )
 	    {
 		    foreach($aFields as $key =>&$value)
 		    {
-		        $query .= "`" . $key . "`='".$database->escapeString($value)."', ";
+		        $query .= "`" . $key . "`='".self::$oDatabase->escapeString($value)."', ";
 		    }
         } else {
             foreach($aFields as $key => $value)
@@ -81,9 +99,9 @@ class queries extends \newsreader\abstracts\addon
 	        $query .= " WHERE ". $sCondition; // `section_id`=".$section_id;	# Keep in Mind that the $section_id comes from admin-wrapper script!	
         }
 
-	    $database->query( $query );
+	    self::$oDatabase->query( $query );
         
-        return $database->is_error();
+        return !(self::$oDatabase->is_error());
     }
     
     /**
@@ -193,5 +211,48 @@ class queries extends \newsreader\abstracts\addon
         
             return $oResult->fetchRow( MYSQLI_ASSOC );
         }
+    }
+    
+    /**
+     *  ::Create
+     *  Public static function to create a db-table
+     *
+     *  @param  string  $sTableName A valid db-tablename (incl. Table-Prefix!)
+     *  @param  string  $sFieldDescriptions A string with the field definitions.
+     *  @param  boolean $bIfNotExists   Optional add "if not exists" in the query. Default is "false".
+     *  @param  boolean $bDropExistingOne   Optionam drop table if it exists before. Default is "false".
+     *
+     *  @return boolean True if ok - false if there is an error.    
+     *
+     */
+    static public function create( $sTableName="", $sFieldDescriptions = "", $bIfNotExists = false, $bDropExistingOne = false)
+    {
+        if(true === $bDropExistingOne)
+        {
+            if(false === self::drop( $sTableName ))
+            {
+                return false;
+            }
+        }
+        $sQuery = "CREATE TABLE ".($bIfNotExists === true ? "IF NOT EXISTS" : ""). "`".$sTableName."` ";
+        $sQuery .= $sFieldDescriptions;
+        
+        self::testDB();
+        self::$oDatabase->query( $sQuery );
+        
+        return !(self::$oDatabase->is_error());
+    }
+    
+    /**
+     *  Simple drop a given table.
+     *
+     *  @param  string  $sTableName A valid table name.
+     *  @return boolean False if faild, otherwise true.
+     */
+    static public function drop( $sTableName="" )
+    {
+        self::testDB();
+        self::$oDatabase->query( "DROP TABLE IF EXISTS `".$sTableName."`" );
+        return !(self::$oDatabase->is_error());
     }
 }
