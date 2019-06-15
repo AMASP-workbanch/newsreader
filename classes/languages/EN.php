@@ -1,20 +1,25 @@
 <?php
 
 /**
+ *  Class EN for module newsreader
  *
- * @category        page
- * @package         newsreader
- * @author          Robert Hase, Matthias Gallas, Dietrich Roland Pehlke (last)
- * @license         http://www.gnu.org/licenses/gpl.html
- * @platform        WebsiteBaker 2.12.x
- * @requirements    PHP 7.1 and higher
- * @version         0.4.0
- * @lastmodified    Jun 2019 
- *
+ *  @category        page
+ *  @package         newsreader
+ *  @author          Robert Hase, Matthias Gallas, Dietrich Roland Pehlke (last)
+ *  @license         http://www.gnu.org/licenses/gpl.html
+ *  @platform        WebsiteBaker 2.12.x
+ *  @requirements    PHP 7.1 and higher
+ *  @version         0.4.0
+ *  @lastmodified    Jun 2019 
  */
 
 namespace newsreader\languages;
 
+/**
+ *  Class EN
+ *
+ *  The language file for module 'newsreader' for the interface/frontend output.
+ */
 class EN extends \newsreader\abstracts\languages 
 {
     //  ---- Part 1

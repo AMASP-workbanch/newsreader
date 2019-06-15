@@ -259,8 +259,8 @@ class queries extends \newsreader\abstracts\addon
     /**
      *  Delete entries from a given table.
      *
-     *  @param  string  $sTableName A valid tablename (incl. the TABLE_PREFIX!).
-     *  @param  array   $sCondition An assoc. array.
+     *  @param  string  $sTableName     A valid tablename (incl. the TABLE_PREFIX!).
+     *  @param  array   $aConditions    An assoc. array.
      *  @return boolean True if success, otherwise false.
      *
      */

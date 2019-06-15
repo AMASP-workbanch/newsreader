@@ -18,14 +18,26 @@ namespace newsreader;
 class newsreader extends abstracts\addon
 {
     
+    /**
+     *  Own instance of this class.
+     */
     static $instance;
     
+    /**
+     *  Inherited from class "addon" to init own properies.
+     */
     public function initialize()
     {
     
     }
     
-    public function output($nf)
+    /**
+     *  The basic output of the newsreader.
+     *
+     *  @param  array   $nf An assoc. array with params.
+     *  @return string  The generated HTM-Code.
+     */
+    public function output($nf=array() )
     {
         /*
             DESCRIPTION:
@@ -178,6 +190,10 @@ class newsreader extends abstracts\addon
         return $nf;
     }
 
+    /**
+     *  Old function/method. Reads the files in the given ConvertTables directory.
+     *  @return array   An array with the filenames.
+     */
     public function readCharsets() {
     
         $dir = __DIR__.'/ConvertTables';
@@ -197,6 +213,10 @@ class newsreader extends abstracts\addon
         return $arrOptions;
     }
 
+    /**
+     *  Old (obsolete) function/method?
+     *
+     */
     public function getLanguage() {
         if(isset($_SESSION['LANGUAGE']) AND $_SESSION['LANGUAGE'] != '') {
             if(!defined('LANGUAGE')) {

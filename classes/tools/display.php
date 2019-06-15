@@ -17,7 +17,16 @@ namespace newsreader\tools;
  
 class display
 {
-    static function dump( $aAny = NULL, $sTag = "pre", $sCSSClassname = NULL )
+    /**
+     *  Generates a var-dump for a given variable/object.  
+     *
+     *  @param  object   $aAny           Any valid (listable) kind ov var to display(dump).  
+     *  @param  string  $sTag           An optional tag type, e.g. pre, div, dd/dl. Default is 're'.  
+     *  @param  string  $sCSSClassname  An optional css-class name/identifier. Default is '' (empty string === 'none').  
+     *  @return string  The generated (html) source.  
+     *
+     */
+    static function dump( $aAny = NULL, $sTag = "pre", $sCSSClassname = NULL ) : string
     {
         $sReturnValue = "<".$sTag.($sCSSClassname != NULL ? " class='".$sCSSClassname."'" : "").">\n";
         
