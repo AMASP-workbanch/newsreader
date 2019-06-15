@@ -1,0 +1,8 @@
+# newsreader
+
+# .gitignore
+.DS_Store
+*/.DS_Store
+
+phpDocumentor.phar
+doc/
