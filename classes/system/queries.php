@@ -255,4 +255,27 @@ class queries extends \newsreader\abstracts\addon
         self::$oDatabase->query( "DROP TABLE IF EXISTS `".$sTableName."`" );
         return !(self::$oDatabase->is_error());
     }
+    
+    /**
+     *  Delete entries from a given table.
+     *
+     *  @param  string  $sTableName A valid tablename (incl. the TABLE_PREFIX!).
+     *  @param  array   $sCondition An assoc. array.
+     *  @return boolean True if success, otherwise false.
+     *
+     */
+    static public function delete( $sTableName="", $aConditions=[] )
+    {
+        // "DELETE FROM ".TABLE_PREFIX."search WHERE name = 'module' AND value = 'newsreader'"
+        $sQuery = "DELETE FROM `". $sTableName ."` WHERE ";
+        foreach($aConditions as $key => $value)
+        {
+            $sQuery .= "`".$key."`='".$value."' AND";
+        }
+        $sQuery = substr( $sQuery, 0, -4 );
+        
+        self::testDB();
+        self::$oDatabase->query( $sQuery );
+        return !(self::$oDatabase->is_error());
+    }
 }

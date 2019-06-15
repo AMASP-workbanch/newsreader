@@ -15,6 +15,19 @@
 
 if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
 
-$database->query("DELETE FROM ".TABLE_PREFIX."search WHERE name = 'module' AND value = 'newsreader'");
-$database->query("DELETE FROM ".TABLE_PREFIX."search WHERE extra = 'newsreader'");
-$database->query("DROP TABLE ".TABLE_PREFIX."mod_newsreader");
+if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
+{
+    addon\newsreader\classes\newsreaderInit::getInstance();
+}
+
+newsreader\system\queries::delete(
+    TABLE_PREFIX."search",
+    [   "name"    => "module", "value"   => "newsreader" ]
+);
+
+newsreader\system\queries::delete(
+    TABLE_PREFIX."search",
+    [   "extra"    => "newsreader" ]
+);
+
+newsreader\system\queries::drop( TABLE_PREFIX."mod_newsreader" );

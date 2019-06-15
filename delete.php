@@ -17,6 +17,12 @@ if ((__FILE__ != $_SERVER['SCRIPT_FILENAME']) === false) {
 	die('<head><title>Access denied</title></head><body><h2 style="color:red;margin:3em auto;text-align:center;">Cannot access this file directly</h2></body></html>');
 }
 
-$database->query("DELETE FROM `".TABLE_PREFIX."mod_newsreader` WHERE `section_id` = '".$section_id."'");
+if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
+{
+    addon\newsreader\classes\newsreaderInit::getInstance();
+}
 
-?>
+newsreader\system\queries::delete(
+    TABLE_PREFIX."mod_newsreader",
+    [   "section_id"    => $section_id ]
+);
