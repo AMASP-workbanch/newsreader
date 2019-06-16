@@ -5,7 +5,7 @@ Pagemodule to handel XML and RDF/RSS (0.9x, 1.0, 2.0) newsfeeds for WBCE/Website
 Just an old module, started by Robert Hase about 2005 for WebsiteBaker.  
 _Nothing more, nothing less._
 
-## Notice: 0.4.0 is still under construction!
+## Notice: 0.4.0.0 is still under construction!
 
 #### Require
 - PHP >= 7.2.x
