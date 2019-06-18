@@ -1,6 +1,15 @@
 <?php
 
 /**
+ *  Tools for development
+ *  @category   LEPTON cross development
+ *  @package    newsreader
+ *
+ */
+
+namespace newsreader\abstracts;
+
+/**
  *
  * @category        page
  * @package         newsreader
@@ -13,21 +22,31 @@
  *
  */
 
-namespace newsreader\abstracts;
-
 abstract class addon
 {
+    /**
+     *  Instance of the class.
+     */
     static $instance = NULL;
 
-    public static function getInstance()
+    /**
+     *  Returns the instance of the class.
+     *  Calls also the (abstract) class-method "initialize()"; without any argument.
+     *
+     *  @return object  The instance-object of the class.
+     */
+    public static function getInstance( $aOptions=array() )
     {
         if (NULL === static::$instance)
         {
             static::$instance = new static();
-            static::$instance->initialize();
+            static::$instance->initialize( $aOptions );
         }
         return static::$instance;
     }
 
+    /**
+     *  Abstract method - has to be overwrite by the child-instance!
+     */
     abstract public function initialize();
 }
