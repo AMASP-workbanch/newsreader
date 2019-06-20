@@ -26,7 +26,7 @@ class display
     /**
      *  Generates a var-dump for a given variable/object.  
      *
-     *  @param  object   $aAny           Any valid (listable) kind ov var to display(dump).  
+     *  @param  object  $aAny           Any valid (listable) kind ov var to display(dump).  
      *  @param  string  $sTag           An optional tag type, e.g. pre, div, dd/dl. Default is 're'.  
      *  @param  string  $sCSSClassname  An optional css-class name/identifier. Default is '' (empty string === 'none').  
      *  @return string  The generated (html) source.  
