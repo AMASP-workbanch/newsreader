@@ -49,7 +49,7 @@ class core extends \newsreader\abstracts\addon
         }
     }
 
-    public static function getPlatform()
+    public static function getPlatformVersion()
     {
         if( NULL === static::$instance )
         {
