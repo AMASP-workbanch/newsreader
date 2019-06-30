@@ -85,6 +85,13 @@ if(!class_exists("newsreader\\system\\preload"))
                     if(file_exists( $sLookUpFileName ))
                     {
                         require $sLookUpFileName;
+                    } else {
+                        $sLookUpFileName = dirname(__DIR__)."/modules/newsreader/classes/".$sSubPath;
+                        // 1.3 Install b
+                        if(file_exists( $sLookUpFileName ))
+                        {
+                            require $sLookUpFileName;
+                        }
                     }
                 }
             }       
