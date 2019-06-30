@@ -78,6 +78,7 @@ if(!class_exists("newsreader\\system\\preload"))
                 {
                     require $sLookUpFileName;
                 } else {
+                    
                     //  1.2 Install process via zip
                     $sLookUpFileName = dirname(dirname(__DIR__))."/classes/".$sSubPath;
                 
@@ -86,10 +87,10 @@ if(!class_exists("newsreader\\system\\preload"))
                     {
                         require $sLookUpFileName;
                     } else {
+                        //  1.3 Install b
                         $sLookUpFileName = dirname(dirname(dirname(dirname(__DIR__))))."/modules/newsreader/classes/".$sSubPath;
-                        // 1.3 Install b
-                        echo "<p>[2]".$sLookUpFileName." | ".__DIR__." | ".$sSubPath."<p>";
                         
+                        // echo "<p>[2]".$sLookUpFileName." | ".__DIR__." | ".$sSubPath."<p>";
                         if(file_exists( $sLookUpFileName ))
                         {
                             require $sLookUpFileName;
