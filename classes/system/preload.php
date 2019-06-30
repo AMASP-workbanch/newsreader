@@ -66,12 +66,22 @@ class preload
             
             array_shift($terms);
             
-            $sLookUpFileName = $sCMSBasePath.implode( DIRECTORY_SEPARATOR, $terms ).".php";
+            $sSubPath = implode( DIRECTORY_SEPARATOR, $terms ).".php";
+            
+            //  1.1
+            $sLookUpFileName = $sCMSBasePath.$sSubPath;
             
             // echo "<p>".$sLookUpFileName."<p>";
             if(file_exists( $sLookUpFileName ))
             {
                 require $sLookUpFileName;
+            } else {
+                //  1.2
+                $sLookUpFileName = static::$instance->basepath."/classes/".$sSubPath;
+                if(file_exists( $sLookUpFileName ))
+                {
+                    require $sLookUpFileName;
+                }
             }
         }       
     }
