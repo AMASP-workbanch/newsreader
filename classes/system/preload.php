@@ -14,77 +14,80 @@
  */
  
 namespace newsreader\system;
- 
-class preload
+
+if(!class_exists("newsreader\\system\\preload"))
 {
-
-    protected $basepath = "";
-    
-    public static $instance;
-    
-    /**
-     *  initialize the instance of this class.
-     *
-     */
-    public static function initialize()
+    class preload
     {
-        if (null === static::$instance)
-        {
-            static::$instance = new static();
-            static::$instance->basepath = dirname(dirname(dirname(__DIR__)));
-            static::$instance->register();
-        }
-    }
-    
-	/**
-	 * Registers autoloader as an SPL autoloader.
-	 *
-	 * @param bool $prepend Whether to prepend the autoloader or not.
-	 */
-	protected function register($prepend = true)
-	{
-		spl_autoload_register(array(__CLASS__, 'NewsreaderAutoloader'), true, $prepend);
-	}
 
-    /**
-     *	NewsreaderAutoloader autoloader for WBCE
-     *
-     *
-     */
-    protected function NewsreaderAutoloader( $aClassName ) {
-        $terms = explode("\\", $aClassName);
-        
-        $sCMSBasePath = static::$instance->basepath;
-        
-        if($terms[0] === "addons")
+        protected $basepath = "";
+    
+        public static $instance;
+    
+        /**
+         *  initialize the instance of this class.
+         *
+         */
+        public static function initialize()
         {
-            array_shift($terms);
-        }
-        if($terms[0] === "newsreader")
-        {
-            $sCMSBasePath .= "/newsreader/classes/";
-            
-            array_shift($terms);
-            
-            $sSubPath = implode( DIRECTORY_SEPARATOR, $terms ).".php";
-            
-            //  1.1
-            $sLookUpFileName = $sCMSBasePath.$sSubPath;
-            
-            // echo "<p>".$sLookUpFileName."<p>";
-            if(file_exists( $sLookUpFileName ))
+            if (null === static::$instance)
             {
-                require $sLookUpFileName;
-            } else {
-                //  1.2
-                $sLookUpFileName = dirname(dirname(__DIR__))."/classes/".$sSubPath;
-                
-                echo "<p>[1]".$sLookUpFileName."<p>";
+                static::$instance = new static();
+                static::$instance->basepath = dirname(dirname(dirname(__DIR__)));
+                static::$instance->register();
+            }
+        }
+    
+        /**
+         * Registers autoloader as an SPL autoloader.
+         *
+         * @param bool $prepend Whether to prepend the autoloader or not.
+         */
+        protected function register($prepend = true)
+        {
+            spl_autoload_register(array(__CLASS__, 'NewsreaderAutoloader'), true, $prepend);
+        }
+
+        /**
+         *	NewsreaderAutoloader autoloader for WBCE
+         *
+         *
+         */
+        protected function NewsreaderAutoloader( $aClassName ) {
+            $terms = explode("\\", $aClassName);
+        
+            $sCMSBasePath = static::$instance->basepath;
+        
+            if($terms[0] === "addons")
+            {
+                array_shift($terms);
+            }
+            if($terms[0] === "newsreader")
+            {
+                $sCMSBasePath .= "/newsreader/classes/";
+            
+                array_shift($terms);
+            
+                $sSubPath = implode( DIRECTORY_SEPARATOR, $terms ).".php";
+            
+                //  1.1
+                $sLookUpFileName = $sCMSBasePath.$sSubPath;
+            
+                // echo "<p>".$sLookUpFileName."<p>";
                 if(file_exists( $sLookUpFileName ))
                 {
                     require $sLookUpFileName;
+                } else {
+                    //  1.2 Install process via zip
+                    $sLookUpFileName = dirname(dirname(__DIR__))."/classes/".$sSubPath;
+                
+                    //  echo "<p>[1]".$sLookUpFileName."<p>";
+                    if(file_exists( $sLookUpFileName ))
+                    {
+                        require $sLookUpFileName;
+                    }
                 }
-            }
-        }       
+            }       
+        }
     }
 }
