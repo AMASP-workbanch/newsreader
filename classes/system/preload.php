@@ -77,7 +77,9 @@ class preload
                 require $sLookUpFileName;
             } else {
                 //  1.2
-                $sLookUpFileName = static::$instance->basepath."/classes/".$sSubPath;
+                $sLookUpFileName = dirname(dirname(__DIR__))."/classes/".$sSubPath;
+                
+                echo "<p>[1]".$sLookUpFileName."<p>";
                 if(file_exists( $sLookUpFileName ))
                 {
                     require $sLookUpFileName;
