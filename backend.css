@@ -36,3 +36,10 @@ select[name="coding_to"] {
     float: left;
     min-width: 150px !important;
 }
+
+table.newsreader tr td:first-child {
+    text-align: right;
+    padding-right: 12px;
+    color: #666666;
+    font-style: italic;
+}

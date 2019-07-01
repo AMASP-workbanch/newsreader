@@ -12,7 +12,7 @@
 	  <input type="hidden" name="sqltype" value="{{ SQLTYPE }}" />
 	  <input type="hidden" name="job" value="save" />
 	  {{ FTAN }}
-	  <table width=100%>
+	  <table class="newsreader" width="80%">
 			<tr>
 				<td>{{ TEXT_RSS_URI }}</td>
 				<td><input name="uri" size="50" maxlength="255" value="{{ URI }}" /></td>
@@ -64,7 +64,7 @@
 			<tr>
 				<td>&nbsp;</td><td>&nbsp;</td>
 			</tr>
-			</table>
+        </table>
     <table class="newsreader_interface">
 			<tr>
 				<td align="center">
