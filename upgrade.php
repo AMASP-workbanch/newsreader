@@ -9,7 +9,7 @@
  * @platform        WebsiteBaker 2.12.x
  * @requirements    PHP 7.1 and higher
  * @version         0.4.0
- * @lastmodified    Jun 2019 
+ * @lastmodified    Jul 2019 
  *
  */
 

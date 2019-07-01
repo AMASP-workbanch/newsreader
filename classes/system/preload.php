@@ -9,7 +9,7 @@
  * @platform        WebsiteBaker 2.12.x
  * @requirements    PHP 7.1 and higher
  * @version         0.4.0
- * @lastmodified    Jun 2019 
+ * @lastmodified    Jul 2019 
  *
  */
  
@@ -18,10 +18,7 @@ namespace newsreader\system;
 if(!class_exists("newsreader\\system\\preload"))
 {
     class preload
-    {
-
-        protected $basepath = "";
-        
+    {        
         protected $aBasePaths = [];
         
         public static $instance;
@@ -35,7 +32,6 @@ if(!class_exists("newsreader\\system\\preload"))
             if (null === static::$instance)
             {
                 static::$instance = new static();
-                static::$instance->basepath = dirname(dirname(dirname(__DIR__)));
                 
                 $sPath = dirname(dirname(__DIR__));
                 static::$instance->aBasePaths = [
@@ -65,9 +61,7 @@ if(!class_exists("newsreader\\system\\preload"))
          */
         protected function NewsreaderAutoloader( $aClassName ) {
             $terms = explode("\\", $aClassName);
-        
-            $sCMSBasePath = static::$instance->basepath;
-        
+
             if($terms[0] === "addons")
             {
                 array_shift($terms);
