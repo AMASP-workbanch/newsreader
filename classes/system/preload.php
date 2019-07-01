@@ -21,7 +21,9 @@ if(!class_exists("newsreader\\system\\preload"))
     {
 
         protected $basepath = "";
-    
+        
+        protected $aBasePaths = [];
+        
         public static $instance;
     
         /**
@@ -34,6 +36,14 @@ if(!class_exists("newsreader\\system\\preload"))
             {
                 static::$instance = new static();
                 static::$instance->basepath = dirname(dirname(dirname(__DIR__)));
+                
+                $sPath = dirname(dirname(__DIR__));
+                static::$instance->aBasePaths = [
+                    dirname($sPath)."/newsreader/classes/",
+                    $sPath."/classes/",
+                    dirname(dirname($sPath))."/modules/newsreader/classes/"
+                ];
+                
                 static::$instance->register();
             }
         }
@@ -64,37 +74,17 @@ if(!class_exists("newsreader\\system\\preload"))
             }
             if($terms[0] === "newsreader")
             {
-                $sCMSBasePath .= "/newsreader/classes/";
-            
                 array_shift($terms);
             
                 $sSubPath = implode( DIRECTORY_SEPARATOR, $terms ).".php";
             
-                //  1.1
-                $sLookUpFileName = $sCMSBasePath.$sSubPath;
-            
-                // echo "<p>".$sLookUpFileName."<p>";
-                if(file_exists( $sLookUpFileName ))
+                foreach( static::$instance->aBasePaths as &$sTempPath )
                 {
-                    require $sLookUpFileName;
-                } else {
-                    
-                    //  1.2 Install process via zip
-                    $sLookUpFileName = dirname(dirname(__DIR__))."/classes/".$sSubPath;
-                
-                    //  echo "<p>[1]".$sLookUpFileName."<p>";
+                    $sLookUpFileName = $sTempPath.$sSubPath;
                     if(file_exists( $sLookUpFileName ))
                     {
                         require $sLookUpFileName;
-                    } else {
-                        //  1.3 Install b
-                        $sLookUpFileName = dirname(dirname(dirname(dirname(__DIR__))))."/modules/newsreader/classes/".$sSubPath;
-                        
-                        // echo "<p>[2]".$sLookUpFileName." | ".__DIR__." | ".$sSubPath."<p>";
-                        if(file_exists( $sLookUpFileName ))
-                        {
-                            require $sLookUpFileName;
-                        }
+                        break;
                     }
                 }
             }       

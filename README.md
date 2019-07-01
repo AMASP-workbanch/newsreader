@@ -9,8 +9,16 @@ _Nothing more, nothing less._
 
 #### Require
 - PHP >= 7.2.x
-- WBCE 1.3.3
-- WebsiteBaker 2.12.0 (2.12.1 recommended)
+- WBCE 1.3.3 (1.4.0)
+- WebsiteBaker 2.12.0 (2.12.2 recommended)
+
+#### Installation
+##### WB (2.12.0 - 2.12.2)
+Download the zip-archiv - extract the files and place them into the "modules" folder and use "namual install in the BE.  
+_At this time there is no other way, as during the installation via zip the "info.php" is parsed by WB, not "executed|loaded"._  
+
+#### WBCE (1.3.3 - 1.4.0)
+Download the zip and install via backend, or download the zip, extract it and use "manual install" in the BE.
 
 #### Customize
 ##### for frontend
@@ -29,6 +37,6 @@ and make your individual changes/adjustments.
 
 #### Tests
 Tested on
-- WBCE 1.3.3 with PHP 7.3.1
-- WB 2.12.0 with PHP 7.2.8
+- WBCE 1.3.3 (1.4.0) with PHP 7.3.1
+- WB 2.12.2 with PHP 7.3.1
 
