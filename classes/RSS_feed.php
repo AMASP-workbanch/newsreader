@@ -89,6 +89,10 @@ class RSS_feed {
 	public $channelclosed; // To indicate state if channel closes before image tags.
 	public $error = "";		// Public property for "last" error-messages, e.g. 'unable to connect the host at http://www.abc.xx'.
 	
+	//  Newsreader 0.4.0
+	public $sMainTag    = "ul";
+	public $sSubTag     = "li";
+	
 	//	Constructor
 	public function __construct() {
 		
@@ -163,21 +167,24 @@ class RSS_feed {
 		xml_parser_set_option($this->psr,XML_OPTION_CASE_FOLDING,1);
 		
 		// Set the parser element handlers based upon the version.
-		switch ($this->version) {
+		switch ($this->version)
+		{
 			case 9:
 			case 2;
-			xml_set_element_handler($this->psr, '_handle_open_element', '_handle_close_element');
-			break;
+			    xml_set_element_handler($this->psr, '_handle_open_element', '_handle_close_element');
+			    break;
+			
 			case 1:
-			xml_set_element_handler($this->psr, '_rdf_handle_open_element', '_handle_close_element');
-			break;
+			    xml_set_element_handler($this->psr, '_rdf_handle_open_element', '_handle_close_element');
+			    break;
 		}
 
 		// Set the handler for the cdata
 		xml_set_character_data_handler($this->psr, "_handle_character_data");
 		
 		// Parse it.
-		if (!xml_parse ($this->psr, $c)) {
+		if (!xml_parse ($this->psr, $c))
+		{
 			// This returns an error message if the RSS/XML cannot be parsed. 
 			// Too bad.
 			// This indicates a bad or malformed feed!
@@ -191,7 +198,7 @@ class RSS_feed {
 		$this->contents = "";
 		
 		// Close the list and return the results
-		$this->output .= "\t</ul>\n";
+		$this->output .= "\t</".$this->sMainTag.">\n";
 		return $this->output;
 	}
 
@@ -204,24 +211,24 @@ class RSS_feed {
 		$element = strtolower($element);
 		switch($element) {
 			case 'rss':
-			// data at this level may not be needed
-			$this->level = 0;
-			$this->state = 0;
-			break;
+                // data at this level may not be needed
+                $this->level = 0;
+                $this->state = 0;
+                break;
 			
 			case 'channel':
-			// The channel may have a title and a link and a description
-			// This data will not be part of the list, but will precede it.
-			$this->flag = true;
-			$this->level = 1;
-			$this->state = 1;
-			break;
+                // The channel may have a title and a link and a description
+                // This data will not be part of the list, but will precede it.
+                $this->flag = true;
+                $this->level = 1;
+                $this->state = 1;
+                break;
 			
 			case 'item':
-			// We have an item to process
-			$this->level = 3;
-			$this->state = 3;
-			break;
+                // We have an item to process
+                $this->level = 3;
+                $this->state = 3;
+                break;
 			
 			// some tags that will appear under 'channel'
 			// for now, ignore these tags. 
@@ -231,34 +238,34 @@ class RSS_feed {
 			case 'width':
 			case 'height':
 			case 'language':
-			$this->state = 99;
-			break;
+			    $this->state = 99;
+			    break;
 			
 			case 'image':
-			// This assumes the image is a container element, as this is most common
-			$this->level = 2;
-			break;
+			    // This assumes the image is a container element, as this is most common
+			    $this->level = 2;
+			    break;
 			
 			case 'title':
-			$this->state = 4;
-			break;
+			    $this->state = 4;
+			    break;
 			
 			case 'link':
-			$this->state = 5;
-			break;
+			    $this->state = 5;
+			    break;
 			
 			case 'description':
-			$this->state = 6;
-			break;
+			    $this->state = 6;
+			    break;
 			
 			case 'url':
-			$this->state = 7;
-			break;
+			    $this->state = 7;
+			    break;
 			
 			default:
-			// ignore any undefined tags
-			$this->state = 99;
-			break;
+			    // ignore any undefined tags
+			    $this->state = 99;
+			    break;
 		}
 	}
 
@@ -273,59 +280,59 @@ class RSS_feed {
 		// Nah!
 		switch($element) {
 			case "rdf:rdf":
-			// The parser takes care of the Namespace, so we can ignore this.
-			$this->level = 0;
-			$this->state = 0;
-			break;
+                // The parser takes care of the Namespace, so we can ignore this.
+                $this->level = 0;
+                $this->state = 0;
+                break;
 			
 			case "channel":
-			// Same as above.
-			$this->flag = true;
-			$this->level = 1;
-			$this->state = 1;
-			break;
+                // Same as above.
+                $this->flag = true;
+                $this->level = 1;
+                $this->state = 1;
+                break;
 			
 			case "image":
-			// Assumes <image> is a container element. This is most common.
-			$this->level = 2;
-			break;
+                // Assumes <image> is a container element. This is most common.
+                $this->level = 2;
+                break;
 			
 			case "items":
-			// channel parameters stop and items begin. We can ignore this.
-			$this->state = 99;
-			break;
+                // channel parameters stop and items begin. We can ignore this.
+                $this->state = 99;
+                break;
 			
 			case "item":
-			// We have an item to process.
-			$this->level = 3;
-			$this->state = 3;
-			break;	
+                // We have an item to process.
+                $this->level = 3;
+                $this->state = 3;
+                break;	
 			
 			case "title":
-			$this->state = 4;
-			break;
+                $this->state = 4;
+                break;
 			
 			case "link":
-			$this->state = 5;
-			break;
-			
+                $this->state = 5;
+                break;
+            
 			case "description":
-			$this->state = 6;
-			break;
+                $this->state = 6;
+                break;
 			
 			case "url":
-			$this->state = 7;
-			break;
-			
+                $this->state = 7;
+                break;
+            
 			// These next two are somewhat redundant, unless strict RDF format is followed.
 			// Ho hum ...
 			// We will ignore them.
 			case "rdf:seq":
 			case "rdf:li":
 			default:
-			// ignore tags
-			$this->state = 99;
-			break;
+			    // ignore tags
+			    $this->state = 99;
+			    break;
 		}
 	}
 
@@ -358,63 +365,73 @@ class RSS_feed {
 			if(!isset($this->item['link'])) $this->item['link'] = "";
 			if(!isset($this->item['desc'])) $this->item['desc'] = "";
 			
-			switch ($this->state) {
+			switch ($this->state)
+			{
 				case 4:  // title
-				switch ($this->level) {
-					// This are the only levels that are important here.
-					case 1:	// Channel
-					$this->channel["title"] .= $cdata;
-					break;
-					case 2; // Image
-					if($this->image["title"] == '') {
-						$this->image["title"] = $cdata;
-					}
-					break;
-					case 3:  // Item
-					$this->item["title"] .= $cdata;
-					break;
-				}
-				break;
+                    switch ($this->level)
+                    {
+                        // This are the only levels that are important here.
+                        case 1:	// Channel
+                            $this->channel["title"] .= $cdata;
+                            break;
+                        
+                        case 2; // Image
+                            if($this->image["title"] == '') {
+                                $this->image["title"] = $cdata;
+                            }
+                            break;
+                        
+                        case 3:  // Item
+                            $this->item["title"] .= $cdata;
+                            break;
+                    }
+                    break;
 				
 				case 5:  // link
-				switch ($this->level) {
-					case 1: // Channel
-					// Make the link for the channel and change to item level. We're done here.
-					$this->channel["link"] .= $cdata;
-					break;
-					case 2: // Image
-					$this->image["link"] = $cdata;
-					break;
-					case 3: // Item
-					// Make the link for the item. Reset the flag and initialize the unordered list.
-					// Add the link for the item
-					$this->item["link"] .= $cdata;
-					break;
-				}
-				break;
+                    switch ($this->level)
+                    {
+                        case 1: // Channel
+                            // Make the link for the channel and change to item level. We're done here.
+                            $this->channel["link"] .= $cdata;
+                            break;
+                        
+                        case 2: // Image
+                            $this->image["link"] = $cdata;
+                            break;
+                        
+                        case 3: // Item
+                            // Make the link for the item. Reset the flag and initialize the unordered list.
+                            // Add the link for the item
+                            $this->item["link"] .= $cdata;
+                            break;
+                    }
+                    break;
 				
 				case 6:  // description
-				// If the description is desired, add it now.
-				if ($this->showdesc) {
-					switch ($this->level) {
-						case 1: // Channel
-						$this->channel["desc"] .= $cdata;
-						break;
-						case 3: // Item
-						$this->item["desc"] .= $cdata;
-						break;
-					}
-				}
-				break;
+                    // If the description is desired, add it now.
+                    if ($this->showdesc) {
+                        switch ($this->level)
+                        {
+                            case 1: // Channel
+                                $this->channel["desc"] .= $cdata;
+                                break;
+                        
+                            case 3: // Item
+                                $this->item["desc"] .= $cdata;
+                                break;
+                        }
+                    }
+                    break;
 				
 				case 7: // Image url
-				if ($this->showimage) {
-					switch ($this->level) {
-						case 2: // Image
-						$this->image["url"] .= $cdata;
-						break;
-					}
-				}
+                    if ($this->showimage) {
+                        switch ($this->level)
+                        {
+                            case 2: // Image
+                                $this->image["url"] .= $cdata;
+                                break;
+                        }
+                    }
 				break;
 			}
 		}
@@ -426,34 +443,37 @@ class RSS_feed {
 		// the output is now created at the close of each of the critical elements.
 		$element = strtolower($element);
 		static $cnt;
-		switch ($element) {
+		switch ($element)
+		{
 			case 'channel':  // major elements -- define closing event
-			// put channel information on the top. This should work even if the channel close element
-			// occurs before the item tags
-			$this->channelclosed = true;
-			break;
+                // put channel information on the top. This should work even if the channel close element
+                // occurs before the item tags
+                $this->channelclosed = true;
+                break;
+			
 			case 'item':
-			// Each item has its own close element
-			if ($this->flag) {
-				// Initialize item list
-				$this->output .= "\n\t<ul>\n";
-				$this->flag = false;
-				$cnt = 0;
-			}
-			if ($this->limit > $cnt || !$this->limit) {
-				$this->output .= "\t\t" . '<li><a href="' . $this->item["link"] . '" title="' . $this->item["link"] . '" target="_blank">' . $this->item["title"] . '</a>';
-				if ($this->showdesc) {
-					$this->output .= "\n\t\t\t" .'<div class="nr_itemdesc">' . $this->item["desc"] . '</div>';
-				}
-				$this->output .= "</li>\n";
-				if ($this->limit > 0) $cnt++;
-			}
-			$this->item["link"] = "";
-			$this->item["title"] = "";
-			$this->item["desc"] = "";
-			break;
+                // Each item has its own close element
+                if ($this->flag) {
+                    // Initialize item list
+                    $this->output .= "\n\t<".$this->sMainTag.">\n";
+                    $this->flag = false;
+                    $cnt = 0;
+                }
+                if ($this->limit > $cnt || !$this->limit) {
+                    $this->output .= "\t\t" . '<'.$this->sSubTag.'><a href="' . $this->item["link"] . '" title="' . $this->item["link"] . '" target="_blank">' . $this->item["title"] . '</a>';
+                    if ($this->showdesc) {
+                        $this->output .= "\n\t\t\t" .'<div class="nr_itemdesc">' . $this->item["desc"] . '</div>';
+                    }
+                    $this->output .= "</".$this->sSubTag.">\n";
+                    if ($this->limit > 0) $cnt++;
+                }
+                $this->item["link"] = "";
+                $this->item["title"] = "";
+                $this->item["desc"] = "";
+			    break;
+			
 			default: // ignore all other close elements
-			break;
+			    break;
 		}
 	}
 
@@ -483,11 +503,16 @@ class RSS_feed {
 
 	private function _get_rss_version() {
 		// Set the version state
-		if (strpos($this->contents,'version="0.9'))  {
+		if (strpos($this->contents,'version="0.9'))
+		{
 			$this->rss_version = 9;
-		} elseif (strpos($this->contents,"rdf:")) {
+		}
+		elseif (strpos($this->contents,"rdf:"))
+		{
 			$this->rss_version = 1;
-		} elseif (strpos($this->contents,'version="2.0"')) {
+		}
+		elseif (strpos($this->contents,'version="2.0"'))
+		{
 			$this->rss_version = 2;
 		}
 	}
