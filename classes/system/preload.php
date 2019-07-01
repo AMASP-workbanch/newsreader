@@ -59,7 +59,8 @@ if(!class_exists("newsreader\\system\\preload"))
          *
          *  @param  string  $sClassName     A classname (incl. namespace).
          */
-        protected function NewsreaderAutoloader( $sClassName ) {
+        protected function NewsreaderAutoloader( $sClassName )
+        {
             $aTerms = explode("\\", $sClassName);
 
             if($aTerms[0] === "addons")
