@@ -26,7 +26,11 @@ place a copy of the ~view.lte inside
 ```code  
 [frontendtemplate]/frontend/newsreader/view.lte
 ```
-and modify as you needed.
+and modify as you needed.  
+Also for the "frontend.css":  
+```code  
+[frontendtemplate]/frontend/newsreader/frontend.css
+```
 
 ##### for backend/theme
 place a copy of the ~modify.lte inside
