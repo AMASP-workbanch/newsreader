@@ -1,0 +1,29 @@
+/**
+ *  Newsreader - frontend.css
+ */
+
+.newsreader {
+
+}
+.nr_description {
+	font-weight: bold;
+}
+.nr_content {
+
+}
+.nr_content ul {
+    
+}
+.nr_content li {
+	margin-bottom: 1em;
+	list-style: disc;
+	list-style-position: outside;
+}
+.nr_itemdesc {
+
+}
+
+.discreet {
+    font-size:90%;
+    margin-bottom: 12px;
+}
