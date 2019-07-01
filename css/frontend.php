@@ -20,6 +20,12 @@ require dirname(dirname(dirname(__DIR__)))."/config.php";
 $sTemplate = DEFAULT_TEMPLATE;
 if(isset($_SESSION['PAGE_ID']))
 {
+    // 2.0.1 nur für WB
+    if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
+    {
+        addon\newsreader\classes\newsreaderInit::getInstance();
+    }
+
     // 2.1
     $aPageValues = newsreader\system\queries::select(
         TABLE_PREFIX."pages",
