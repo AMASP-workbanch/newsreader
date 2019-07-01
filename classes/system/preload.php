@@ -6,7 +6,7 @@
  * @package         newsreader
  * @author          Robert Hase, Matthias Gallas, Dietrich Roland Pehlke (last)
  * @license         http://www.gnu.org/licenses/gpl.html
- * @platform        WebsiteBaker 2.12.x
+ * @platform        WBCE 1.4.x, WebsiteBaker 2.12.x
  * @requirements    PHP 7.1 and higher
  * @version         0.4.0
  * @lastmodified    Jul 2019 
@@ -57,20 +57,20 @@ if(!class_exists("newsreader\\system\\preload"))
         /**
          *	NewsreaderAutoloader autoloader for WBCE
          *
-         *
+         *  @param  string  $sClassName     A classname (incl. namespace).
          */
-        protected function NewsreaderAutoloader( $aClassName ) {
-            $terms = explode("\\", $aClassName);
+        protected function NewsreaderAutoloader( $sClassName ) {
+            $aTerms = explode("\\", $sClassName);
 
-            if($terms[0] === "addons")
+            if($aTerms[0] === "addons")
             {
-                array_shift($terms);
+                array_shift($aTerms);
             }
-            if($terms[0] === "newsreader")
+            if($aTerms[0] === "newsreader")
             {
-                array_shift($terms);
+                array_shift($aTerms);
             
-                $sSubPath = implode( DIRECTORY_SEPARATOR, $terms ).".php";
+                $sSubPath = implode( DIRECTORY_SEPARATOR, $aTerms ).".php";
             
                 foreach( static::$instance->aBasePaths as &$sTempPath )
                 {
