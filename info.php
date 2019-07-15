@@ -33,6 +33,6 @@ if(class_exists("addon\\newsreader\\classes\\newsreaderInit", true))
 }
 
 // [1]
-$module_function    = "page".( newsreader\system\core::isWBCE() ? " , preinit" : "");
+$module_function    = "page".( newsreader\system\core::isWBCE() ? ", preinit" : "");
 // [2]
 $module_platform    = newsreader\system\core::getPlatformVersion();
